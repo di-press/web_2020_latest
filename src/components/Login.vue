@@ -59,9 +59,9 @@ export default {
   methods: {
     redirect: function () {
       if (this.form.mail === "admin" && this.form.pass === "admin") {
-        window.location.href = "/registrar";
+        window.location.href = "/estoque";
       } else {
-        window.location.href = "/carrinho";
+        window.location.href = "/";
       }
     },
     // validatePassword: function (event) {},

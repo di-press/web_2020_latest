@@ -12,115 +12,69 @@
       </v-radio-group>
       -->
 
-      <v-container
-        class="px-0"
-        fluid
-      >
-      <v-card
-    class="mx-auto"
-    max-width="344"
-  >
-    <v-card-text>
-      <p class="display-1 text--primary">
-        Preço: R$ {{ product.quantity * product.price }}
-      </p>
-      <v-tabs>
-        <v-tab>Descrição</v-tab>
-        <v-tab-item>
-           <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
-          <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p>
-          <!-- <p v-bind:style="styles">{{ product.description }}</p> -->
-        </v-tab-item>
-      </v-tabs>
-      <v-tabs>
-        <br/>
-        <v-tab>Informações visuais do produto:</v-tab>
-        <v-tab-item>
-          <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
-          <p>Foto de um moletom laranja, com capuz e bolso frontal. Possui estampa frontal com a mensagem "Sua arte, seu curso, suas cores, beuni</p>
-        </v-tab-item>
-      </v-tabs>
-      <p>Tamanho</p>
-      <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
-        <v-radio label="P" value="P"></v-radio>
-        <v-radio label="M" value="M"></v-radio>
-        <v-radio label="G" value="G"></v-radio>
-        <v-radio label="GG" value="GG"></v-radio>
-      </v-radio-group>
-      <v-card-title 
-        color="black"
-        class="font-weight-bold"
-        v-bind:style="styles">
-        Quantidade 
-      </v-card-title>
-      <v-text-field
-        v-model="product.quantity"
-        type="number"
-        outlined
-        style="width: 100px"
-        :value="1"
-        min="1"
-        dense
-        v-bind:style="styles"
-      ></v-text-field>
-      <!-- BOTAO ADICIONAR CARRINHO -->
-      <div class="center">
-        <v-btn
-          href="/carrinho"
-          color="primary"
-          class="mu-2 mb-8 black--text"
-          large
-        >
-          <v-icon>mdi-cart</v-icon> Adicionar o Carrinho
-        </v-btn>
-      </div>
-
-    </v-card-text>
-    <v-card-actions>
-      <v-btn
-        text
-        color="teal accent-4"
-        @click="reveal = true"
-      >
-        Learn More
-      </v-btn>
-    </v-card-actions>
-
-    <v-expand-transition>
-      <v-card
-        v-if="reveal"
-        class="transition-fast-in-fast-out v-card--reveal"
-        style="height: 50%%;"
-        width="80%"
-      >
-        <v-card-text class="pb-0">
-          <p class="display-1 text--primary">
-            Origin
-          </p>
-          <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
-        </v-card-text>
-        <v-card-actions class="pt-0">
-          <v-btn
-            text
-            color="teal accent-4"
-            @click="reveal = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-expand-transition>
-  </v-card>
-        
-      </v-container>
-
-     
-    
-
-      
+      <v-container class="px-0" fluid>
+        <v-row dense>
+          <v-col cols="12">
+            <v-card class="mx-auto">
+              <v-card-text>
+                <p class="display-1 text--primary">
+                  Preço: R$ {{ computePrice }}
+                </p>
+                <v-tabs>
+                  <v-tab v-bind:style="styles">Descrição</v-tab>
+                  <v-tab-item>
+                    <!-- Deixei as informações visuais hardcoded por motivos de: não achei >
+                    <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p> -->
+                    <p v-bind:style="styles">{{ product.description }}</p>
+                  </v-tab-item>
+                </v-tabs>
+                <v-tabs>
+                  <br/>
+                  <v-tab v-bind:style="styles">Informações visuais do produto:</v-tab>
+                  <v-tab-item>
+                  <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
+                  <p v-bind:style="styles">{{ product.visualDescription }}</p>
+                  </v-tab-item>
+                </v-tabs>
+                <v-card-title color="black" class="font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
+                <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
+                  <v-radio class="vueradio" label="P" value="P"></v-radio>
+                  <v-radio class="vueradio" label="M" value="M"></v-radio>
+                  <v-radio class="vueradio" label="G" value="G"></v-radio>
+                  <v-radio class="vueradio" label="GG" value="GG"></v-radio>
+                </v-radio-group>
+                <v-card-title  color="black" class="font-weight-bold" v-bind:style="styles">
+                  Quantidade 
+                </v-card-title>
+                <v-text-field
+                  v-model="product.quantity"
+                  type="number"
+                  outlined
+                  style="width: 100px"
+                  :value="1"
+                  min="1"
+                  dense
+                  v-bind:style="styles"
+                ></v-text-field>
+                <!-- BOTAO ADICIONAR CARRINHO -->
+                <div class="center">
+                  <v-btn
+                    href="/carrinho"
+                    color="primary"
+                    class="mu-2 mb-8 black--text"
+                    large
+                  >
+                    <v-icon>mdi-cart</v-icon> Adicionar o Carrinho
+                  </v-btn>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>      
 
       <!-- Produtos relacionados -->
-      <p class="text-center">Produtos Relacionados</p>
+      <p class="text-center" v-bind:style="styles">Produtos Relacionados</p>
       <v-divider></v-divider>
       <div class="row text-center">
         <div class="col-md-4 text-center" v-bind:style="styles">
@@ -185,17 +139,19 @@ export default {
   name: "Home",
   data: () => {
     return {
-      storeFont: 1.0,
+      storeFont: 1.4,
       reveal: false,
       styles: {
-        fontSize: '1.0em'
+        fontSize: '1.4em'
       },
-      numericFontSize: 1.0,
+      numericFontSize: 1.4,
       product: {
         images: ["moletom.png", "moletom2.png"],
         name: "Moletom Canguru",
         description:
           "Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.",
+        visualDescription:
+          "#PraCegoVer: Foto de um moletom laranja, com capuz e bolso frontal. Possui estampa frontal com a mensagem \"Sua arte, seu curso, suas cores, beuni\".",
         price: 110.99,
         quantity: 1,
         cores: null,
@@ -206,11 +162,16 @@ export default {
   components: {
     Product,
   },
+  computed: {
+    computePrice() {
+      return (this.product.quantity * this.product.price).toFixed(2) + '';
+    }
+  },
   methods: {
     aumentarFonte() {
       this.numericFontSize += 0.1
-      if (this.numericFontSize >= 1.6) {
-        this.numericFontSize = 1.6;
+      if (this.numericFontSize >= 1.8) {
+        this.numericFontSize = 1.8;
       }
       this.styles.fontSize = this.numericFontSize + 'em';
     },
@@ -309,6 +270,10 @@ p {
 
 .v-card__text, .v-card__title {
   word-break: normal; /* maybe !important  */
+}
+
+.vueradio label {
+  font-size: 1.0em;
 }
 
 .v-card--reveal {

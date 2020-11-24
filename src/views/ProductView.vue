@@ -4,9 +4,6 @@
       <h1>{{ product.name }}</h1>
       <Product :images="product.images" />
 
-      <h2>Preço: R$ {{ product.quantity * product.price }}</h2>
-
-      <v-card-title color="black" class="font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
       <!--<v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
         <v-radio label="P" value="P"></v-radio>
         <v-radio label="M" value="M"></v-radio>
@@ -19,16 +16,37 @@
         class="px-0"
         fluid
       >
-        <v-radio-group v-model="radioGroup">
-          <v-radio
-            v-for="n in 3"
-            :key="n"
-            :label="`Radio ${n}`"
-            :value="n"
-          ></v-radio>
-        </v-radio-group>
-      </v-container>
-
+      <v-card
+    class="mx-auto"
+    max-width="344"
+  >
+    <v-card-text>
+      <p class="display-1 text--primary">
+        Preço: R$ {{ product.quantity * product.price }}
+      </p>
+      <v-tabs>
+        <v-tab>Descrição</v-tab>
+        <v-tab-item>
+           <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
+          <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p>
+          <!-- <p v-bind:style="styles">{{ product.description }}</p> -->
+        </v-tab-item>
+      </v-tabs>
+      <v-tabs>
+        <br/>
+        <v-tab>Informações visuais do produto:</v-tab>
+        <v-tab-item>
+          <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
+          <p>Foto de um moletom laranja, com capuz e bolso frontal. Possui estampa frontal com a mensagem "Sua arte, seu curso, suas cores, beuni</p>
+        </v-tab-item>
+      </v-tabs>
+      <p>Tamanho</p>
+      <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
+        <v-radio label="P" value="P"></v-radio>
+        <v-radio label="M" value="M"></v-radio>
+        <v-radio label="G" value="G"></v-radio>
+        <v-radio label="GG" value="GG"></v-radio>
+      </v-radio-group>
       <v-card-title 
         color="black"
         class="font-weight-bold"
@@ -57,12 +75,49 @@
         </v-btn>
       </div>
 
-      <v-tabs>
-        <v-tab>DESCRIÇÃO</v-tab>
-        <v-tab-item>
-          <p v-bind:style="styles">{{ product.description }}</p>
-        </v-tab-item>
-      </v-tabs>
+    </v-card-text>
+    <v-card-actions>
+      <v-btn
+        text
+        color="teal accent-4"
+        @click="reveal = true"
+      >
+        Learn More
+      </v-btn>
+    </v-card-actions>
+
+    <v-expand-transition>
+      <v-card
+        v-if="reveal"
+        class="transition-fast-in-fast-out v-card--reveal"
+        style="height: 50%%;"
+        width="80%"
+      >
+        <v-card-text class="pb-0">
+          <p class="display-1 text--primary">
+            Origin
+          </p>
+          <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
+        </v-card-text>
+        <v-card-actions class="pt-0">
+          <v-btn
+            text
+            color="teal accent-4"
+            @click="reveal = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-expand-transition>
+  </v-card>
+        
+      </v-container>
+
+     
+    
+
+      
 
       <!-- Produtos relacionados -->
       <p class="text-center">Produtos Relacionados</p>
@@ -131,6 +186,7 @@ export default {
   data: () => {
     return {
       storeFont: 1.0,
+      reveal: false,
       styles: {
         fontSize: '1.0em'
       },
@@ -139,7 +195,7 @@ export default {
         images: ["moletom.png", "moletom2.png"],
         name: "Moletom Canguru",
         description:
-          "Os moletons são feitas em ótima qualidade e esse produto é apenas para compras em atacado",
+          "Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.",
         price: 110.99,
         quantity: 1,
         cores: null,
@@ -253,6 +309,14 @@ p {
 
 .v-card__text, .v-card__title {
   word-break: normal; /* maybe !important  */
+}
+
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+  padding-right: 20px;
 }
 
 </style>

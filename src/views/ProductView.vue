@@ -17,33 +17,35 @@
           <v-col cols="12">
             <v-card class="mx-auto">
               <v-card-text>
-                <p class="display-1 text--primary">
+                <p class="display-1 text--primary align-center">
                   Preço: R$ {{ computePrice }}
                 </p>
+                <br/>
                 <v-tabs>
-                  <v-tab v-bind:style="styles" class="black--text">Descrição</v-tab>
+                  <v-tab v-bind:style="styles" class="black--text font-weight-bold">Descrição</v-tab>
                   <v-tab-item>
                     <!-- Deixei as informações visuais hardcoded por motivos de: não achei >
                     <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p> -->
-                    <p v-bind:style="styles">{{ product.description }}</p>
+                    <p class="font-weight-bold" v-bind:style="styles">{{ product.description }}</p>
                   </v-tab-item>
                 </v-tabs>
+                <br/>
                 <v-tabs>
                   <br/>
-                  <v-tab v-bind:style="styles" class="black--text">Informações visuais do produto:</v-tab>
+                  <v-tab v-bind:style="styles" class="black--text font-weight-bold">Informações visuais:</v-tab>
                   <v-tab-item>
                   <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
-                  <p v-bind:style="styles">{{ product.visualDescription }}</p>
+                  <p class="font-weight-bold" v-bind:style="styles">{{ product.visualDescription }}</p>
                   </v-tab-item>
                 </v-tabs>
-                <v-card-title color="black" class="font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
-                <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
+                <v-card-title color="black" class="black--text font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
+                <v-radio-group v-model="row" class="ml-2 black--text font-weight-bold" row v-bind:style="styles">
                   <v-radio class="vueradio" label="P" value="P"></v-radio>
                   <v-radio class="vueradio" label="M" value="M"></v-radio>
                   <v-radio class="vueradio" label="G" value="G"></v-radio>
                   <v-radio class="vueradio" label="GG" value="GG"></v-radio>
                 </v-radio-group>
-                <v-card-title  color="black" class="font-weight-bold" v-bind:style="styles">
+                <v-card-title  color="black" class="black--text font-weight-bold" v-bind:style="styles">
                   Quantidade 
                 </v-card-title>
                 <v-text-field
@@ -129,6 +131,7 @@
         </div>
       </div>
     </div>
+    <br/>
   </v-app>
 </template>
 

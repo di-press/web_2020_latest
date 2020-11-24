@@ -1,7 +1,7 @@
 <template>
   <v-main>
     <highlights />
-    <products tipo="DESTAQUES">teste</products>
+    <products tipo="NOVIDADES">teste</products>
     <products tipo="PROMOÇÕES"></products>
     <products tipo="CATEGORIAS"></products>
   </v-main>

@@ -21,7 +21,7 @@
                   Preço: R$ {{ computePrice }}
                 </p>
                 <v-tabs>
-                  <v-tab v-bind:style="styles">Descrição</v-tab>
+                  <v-tab v-bind:style="styles" class="black--text">Descrição</v-tab>
                   <v-tab-item>
                     <!-- Deixei as informações visuais hardcoded por motivos de: não achei >
                     <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p> -->
@@ -30,7 +30,7 @@
                 </v-tabs>
                 <v-tabs>
                   <br/>
-                  <v-tab v-bind:style="styles">Informações visuais do produto:</v-tab>
+                  <v-tab v-bind:style="styles" class="black--text">Informações visuais do produto:</v-tab>
                   <v-tab-item>
                   <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
                   <p v-bind:style="styles">{{ product.visualDescription }}</p>
@@ -88,7 +88,7 @@
               </v-img>
               <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
               <div class="text-center">
-                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
               </div>
             </v-card>
           </v-hover>
@@ -105,7 +105,7 @@
               </v-img>
               <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
               <div class="text-center">
-                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
               </div>
             </v-card>
           </v-hover>
@@ -122,7 +122,7 @@
               </v-img>
               <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
               <div class="text-center">
-                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
               </div>
             </v-card>
           </v-hover>

@@ -18,6 +18,7 @@
       <v-text-field
         flat
         filled
+        background-color="grey lighten-1"
         hide-details
         prepend-inner-icon="mdi-magnify"
         placeholder="Buscar"

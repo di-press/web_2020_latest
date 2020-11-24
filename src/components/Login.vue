@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <div class="div_do_login">
+    <div class="hello">
       <form
         id="register"
-        @submit="checkForm"
+        @submit.prevent="checkForm"
         action="https://vuejs.org/"
         method="post"
       >
         <div class="container">
-          <h1>Entrar</h1>
+          <h2>Entrar</h2>
           <br />
           <label for="email">E-mail:</label>
           <input
@@ -59,12 +59,21 @@ export default {
   },
   methods: {
     redirect: function () {
-      if (this.form.mail === "admin" && this.form.pass === "admin") {
+      if (this.form.mail === "admin@gmail.com" && this.form.pass === "admin") {
+        console.log("ADMIN");
         window.location.href = "/estoque";
-      } else {
+        return;
+      } else if (this.form.mail === "user@gmail.com" && this.form.pass === "user") {
         window.location.href = "/";
+        console.log("USER");
+        return;
       }
+
+      console.log("ERRO");
     },
+    // validatePassword: function (event) {},
+    // nada a validar; a validação
+    // é feita pelo post
   },
 };
 </script>
@@ -77,16 +86,15 @@ form {
 
 .container {
   padding: 10px;
-
 }
 
-h1 {
+h2 {
   text-align: center;
 }
 
 label {
   display: block;
-  font-size: 1.3em;
+  text-transform: lowercase;
 }
 
 input[type="text"],

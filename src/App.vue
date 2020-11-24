@@ -212,7 +212,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /*text-align: center;*/
   color: #2c3e50;
-  background-color: #bdbdbd; /* Deixa cinza pra manter o contraste até acharmos uma cor melhor.. */
+  background-color: #d8e7fc; /* Deixa cinza pra manter o contraste até acharmos uma cor melhor.. */
 }
 
 .v-btn {

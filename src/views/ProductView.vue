@@ -32,7 +32,7 @@
                 <br/>
                 <v-tabs>
                   <br/>
-                  <v-tab v-bind:style="styles" class="black--text font-weight-bold">Informações visuais:</v-tab>
+                  <v-tab v-bind:style="styles" class="black--text font-weight-bold">Informações visuais</v-tab>
                   <v-tab-item>
                   <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
                   <p class="font-weight-bold" v-bind:style="styles">{{ product.visualDescription }}</p>

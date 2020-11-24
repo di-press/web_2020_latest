@@ -3,7 +3,7 @@
     <v-card outlined>
       <v-card-title>Produtos</v-card-title>
       <v-row v-for="product in products" :key="product.name">
-        <HorizontalProduct :product="product" :btnAction="remove" />
+        <HorizontalProduct :product="product" />
       </v-row>
     </v-card>
   </v-app>
@@ -16,29 +16,6 @@ export default {
   components: {
     HorizontalProduct,
   },
-  methods: {
-    removeFromCart() {
-      alert("aqui");
-      this.product.quantity = 0;
-    },
-  },
-  data: function () {
-    return {
-      products: [
-        {
-          name: "Moletom",
-          quantity: 1,
-          price: 120.9,
-          //image: require('../../assets/moletom.png'),
-        },
-        {
-          name: "Agenda 2021",
-          quantity: 1,
-          price: 79.6,
-          //image: require('../../assets/moletom.png'),
-        },
-      ],
-    };
-  },
+  props: ['products']
 };
 </script>

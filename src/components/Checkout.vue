@@ -94,11 +94,14 @@
 
           <section>
             <p>Total: 129.9</p>
-            <p></p>
           </section>
         </div>
 
-        <v-btn class="large black--text" color="primary">finalizar</v-btn>
+        <div class="center mb-8">
+          <v-btn class="black--text" color="primary" large
+            >Finalizar Compra</v-btn
+          >
+        </div>
       </form>
     </div>
   </v-app>
@@ -144,5 +147,10 @@ form {
 
 h2 {
   margin-bottom: 30px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -31,7 +31,7 @@
             name="pass"
             placeholder=""
             required="true"
-            @change="validatePassword($event)"
+            @change="validatePassword"
           />
 
           <label for="pass-repeat">Repita a senha:</label>
@@ -42,7 +42,7 @@
             name="confirm_pass"
             placeholder=""
             required="true"
-            @keyup="validatePassword($event)"
+            @keyup="validatePassword"
           />
 
           <label for="id">CPF:</label>
@@ -122,9 +122,11 @@
             <a href="#">política de privacidade</a>.
           </p>
 
-          <v-btn type="submit" color="primary" class="black--text"
-            >finalizar cadastro</v-btn
-          >
+          <div class="center">
+            <v-btn type="submit" color="primary" class="black--text" large>
+              finalizar cadastro
+            </v-btn>
+          </div>
         </div>
       </form>
 
@@ -141,6 +143,11 @@ export default {
   name: "RegistrationForm",
   data: function () {
     return {
+      storeFont: 1.4,
+      styles: {
+        fontSize: '1.0em'
+      },
+      numericFontSize: 1.0,
       form: {
         mail: null,
         pass: null,
@@ -155,7 +162,8 @@ export default {
     };
   },
   methods: {
-    validatePassword: function (event) {
+    /*
+    validatePassword: function () {
       if (this.pass !== this.pass_rep) {
         document
           .getElementById("confirm_pass")
@@ -163,8 +171,35 @@ export default {
       } else {
         document.getElementById("confirm_pass").setCustomValidity("");
       }
+    },*/
+    aumentarFonte() {
+      this.numericFontSize += 0.1
+      if (this.numericFontSize >= 1.4) {
+        this.numericFontSize = 1.4;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
     },
+    diminuirFonte() {
+      this.numericFontSize -= 0.1
+      if (this.numericFontSize <= 1.0) {
+        this.numericFontSize = 1.0;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    }
   },
+  watch: {
+    '$store.state.fontSize': function() {
+      console.log(this.$store.state.fontSize);
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
+  }
 };
 </script>
 
@@ -228,5 +263,10 @@ input[type="tel"]:focus {
 .signin {
   text-align: center;
   margin: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
 </style>

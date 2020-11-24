@@ -1,9 +1,9 @@
 <template>
   <div class="checkbox" v-bind:style="styles">
-    <v-row align="center">
+    <!--<v-row align="center">
       <v-btn color="orange darken-3" @click="aumentarFonte"> {{aumentar}} </v-btn>
       <v-btn color="orange darken-3" @click="diminuirFonte"> {{diminuir}} </v-btn>
-    </v-row>
+    </v-row>-->
     <div class="tipo">
       <label>
         <strong>{{ tipo }}</strong>
@@ -31,9 +31,8 @@ export default {
   props: ["tipo", "opcoes"],
   data() {
     return {
+      storeFont: 1.4,
       styles: {
-        //fontFamily: 'Time New Roman',
-        //fontSize: '1.25 em',
         fontSize: '1.0em'
       },
       numericFontSize: 1.0,
@@ -64,12 +63,25 @@ export default {
     diminuirFonte() {
       //this.styles.fontFamily = "Verdana";
       this.numericFontSize -= 0.1
-      if (this.numericFontSize <= 0.8) {
-        this.numericFontSize = 0.8;
+      if (this.numericFontSize <= 1.0) {
+        this.numericFontSize = 1.0;
       }
       this.styles.fontSize = this.numericFontSize + 'em';
     }
   },
+  watch: {
+    '$store.state.fontSize': function() {
+      console.log(this.$store.state.fontSize)
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
+  }
 };
 </script>
 
@@ -85,8 +97,10 @@ export default {
 }
 
 .vuecheckbox /deep/ label {
-  font-size: 1.4em;
+  font-size: 1.0em;
 }
+
+.v-checkbox label { color: red }
 
 .descricao {
   padding-left: 10%;

@@ -17,7 +17,10 @@ export default {
     HorizontalProduct,
   },
   methods: {
-    removeFromCart() {},
+    removeFromCart() {
+      alert("aqui");
+      this.product.quantity = 0;
+    },
   },
   data: function () {
     return {

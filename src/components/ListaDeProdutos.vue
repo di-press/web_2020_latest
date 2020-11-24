@@ -39,10 +39,10 @@
     </div>
     <div class="produtos">
       <v-container class="grey lighten-5 evelation-2">
-        <v-row align="center">
+        <!--<v-row align="center">
           <v-btn color="orange darken-3" @click="aumentarFontes"> {{aumentar}} </v-btn>
           <v-btn color="orange darken-3" @click="diminuirFontes"> {{diminuir}} </v-btn>
-        </v-row>
+        </v-row>-->
         <v-row no-gutters>
           <template v-for="(detalhesDoProduto, indice) in produtos">
             <v-col :key="indice">
@@ -119,49 +119,49 @@ export default {
         tamanhos: ["Pequeno", "Médio", "Grande", "Extra Grande"],
       },
       // end filtro
-      aumentar: '+A',
-      diminuir: '-A',
+      aumentar: "+A",
+      diminuir: "-A",
       produtos: [
         {
-          nome: "Moletom com bordado personalizável TESTANDO TESTANDO RESIZE",
+          nome: "Moletom com bordado personalizável",
           preco: 25,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2019/10/miniatura-atletica-SAMBA-FRENTE-AM-min.png",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {
           nome: "Moletom com bordado personalizável",
           preco: 180,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/mockup-moletom-atleticacaaso2020-frente.png",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {
           nome: "Moletom com bordado personalizável",
           preco: 95,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/WhatsApp-Image-2020-08-31-at-14.24.28-Jo%C3%A3o-D.jpeg",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {
           nome: "Moletom com bordado personalizável",
           preco: 18,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/04/oculos.png",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {
           nome: "Moletom com bordado personalizável",
           preco: 110,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/mockup-meia-atleticacaaso2020.png",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {
           nome: "Moletom com bordado personalizável",
           preco: 30,
           imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
+            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/03/miniatura-sacim-KIT.png",
           link: "https://www.beuni.com.br/usp/saocarlos/",
         },
         {

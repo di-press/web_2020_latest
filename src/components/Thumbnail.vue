@@ -1,17 +1,12 @@
 <template>
   <div class="thumbnail" v-bind:style="titleStyles">
     <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-      <a v-bind:href="link">
-        <v-img contain :src="imagem"></v-img>
-
-        <v-card-title color="black" class="titulo">{{ nome }}</v-card-title>
-      </a>
+      <v-img contain :src="imagem"></v-img>
+      <v-card-title color="black" class="titulo">{{ nome }}</v-card-title>
 
       <v-card-text>
         <div class="secao-preco" v-bind:style="detailsStyles">R$ {{ preco }}</div>
-        <a v-bind:href="link">
-          <v-btn v-bind:styles="detailsStyles" depressed color="orange"> Mais Informações </v-btn>
-        </a>
+        <v-btn href="/produto" v-bind:styles="detailsStyles" depressed color="orange"> Mais Informações </v-btn>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -25,14 +20,15 @@ export default {
   props: ["nome", "preco", "imagem", "link"],
   data() {
     return {
+      storeFont: 1.4,
       detailsStyles: {
-        fontSize: '1.5em'
+        fontSize: '1.4em'
       },
-      detailsFontSize: 1.5,
+      detailsFontSize: 1.4,
       titleStyles: {
         fontSize: '1.2em'
       },
-      titleFontSize: 1.0,
+      titleFontSize: 1.2,
     };
   },
   methods: {
@@ -41,28 +37,45 @@ export default {
       this.detailsFontSize += 0.1
       this.titleFontSize += 0.1
       
-      if (this.titleFontSize >= 1.8) {
-        this.titleFontSize = 1.8;
-      }
-
       if (this.detailsFontSize >= 2.0) {
         this.detailsFontSize = 2.0;
+      }
+
+      if (this.titleFontSize >= 2.0) {
+        this.titleFontSize = 2.0;
       }
 
       this.detailsStyles.fontSize = this.detailsFontSize + 'em';
       this.titleStyles.fontSize = this.titleFontSize + 'em';
     },
     diminuirFonte() {
-      //this.styles.fontFamily = "Verdana";
       this.detailsFontSize -= 0.1
       this.titleFontSize -= 0.1
       
-      if (this.titleFontSize <= 0.9) {
-        this.titleFontSize = 0.9;
+      if (this.detailsFontSize <= 1.4) {
+        this.detailsFontSize = 1.4;
       }
 
+      if (this.titleFontSize <= 1.2) {
+        this.titleFontSize = 1.2;
+      }
+
+      this.detailsStyles.fontSize = this.detailsFontSize + 'em';
       this.titleStyles.fontSize = this.titleFontSize + 'em';
     }
+  },
+  watch: {
+    '$store.state.fontSize': function() {
+        console.log(this.$store.state.fontSize)
+        if (this.$store.state.fontSize > this.storeFont) {
+          this.aumentarFonte()
+        }
+        else { 
+          this.diminuirFonte()
+        }
+
+        this.storeFont = this.$store.state.fontSize;
+    },
   },
 };
 </script>
@@ -79,7 +92,12 @@ a {
 }
 
 .secao-preco {
-  font-size: 1.5em;
   padding-bottom: 8%;
+  font-size: 1.5em;
 }
+
+.v-card__text, .v-card__title {
+  word-break: normal; /* maybe !important  */
+}
+
 </style>

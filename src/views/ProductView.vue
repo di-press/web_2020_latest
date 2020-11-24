@@ -1,111 +1,111 @@
 <template>
-  <div class="home">
-    <h1>{{ product.name }}</h1>
-    <Product :images="product.images" />
-    <p>{{ product.description }}</p>
+  <v-app>
+    <div class="home">
+      <h1>{{ product.name }}</h1>
+      <Product :images="product.images" />
 
-    <div class="order">
-      <table style="width: 100%">
-        <tr>
-          <th>QUANTIDADE</th>
-          <th>CORES</th>
-          <th>TAMANHOS</th>
-        </tr>
-        <th>
-          <div>
-            <input
-              class="quantity"
-              v-model="product.quantity"
-              type="number"
-              name=""
-              min="1"
-            />
-            <vue-number-input v-model="test0" placeholder="Write" />
-          </div>
-        </th>
-        <th>
-          <label for="cores"></label>
-          <input
-            v-model="product.cores"
-            type="radio"
-            id="cores"
-            name="cores"
-            value="amarelo"
-          />
-          Amarelo<br />
-          <input
-            v-model="product.cores"
-            type="radio"
-            id="cores"
-            name="cores"
-            value="vermelho"
-          />
-          Vermelho <br />
-          <input
-            v-model="product.cores"
-            type="radio"
-            id="cores"
-            name="cores"
-            value="preto"
-          />
-          Preto <br /><br />
-        </th>
-        <th>
-          <label for="tamanho"></label>
-          <input
-            v-model="product.tananho"
-            type="radio"
-            id="tamanho"
-            name="tamanho"
-            value="PP"
-          />
-          PP
-          <input
-            v-model="product.tananho"
-            type="radio"
-            id="tamanho"
-            name="tamanho"
-            value="P"
-          />
-          P
-          <input
-            v-model="product.tamanho"
-            type="radio"
-            id="tamanho"
-            name="tamanho"
-            value="M"
-          />
-          M
-          <input
-            v-model="product.tamanho"
-            type="radio"
-            id="tamanho"
-            name="tamanho"
-            value="G"
-          />
-          G
-          <input
-            v-model="product.tamanho"
-            type="radio"
-            id="tamanho"
-            name="tamanho"
-            value="GG"
-          />
-          GG
-        </th>
-      </table>
+      <h2>Preço: R$ {{ product.quantity * product.price }}</h2>
+
+      <v-card-title color="black" class="font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
+      <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
+        <v-radio label="P" value="P"></v-radio>
+        <v-radio label="M" value="M"></v-radio>
+        <v-radio label="G" value="G"></v-radio>
+        <v-radio label="GG" value="GG"></v-radio>
+      </v-radio-group>
+
+      <v-card-title 
+        color="black"
+        class="font-weight-bold"
+        v-bind:style="styles">
+        Quantidade 
+      </v-card-title>
+      <v-text-field
+        v-model="product.quantity"
+        type="number"
+        outlined
+        style="width: 100px"
+        :value="1"
+        min="1"
+        dense
+        v-bind:style="styles"
+      ></v-text-field>
+      <!-- BOTAO ADICIONAR CARRINHO -->
+      <div class="center">
+        <v-btn
+          href="/carrinho"
+          color="primary"
+          class="mu-2 mb-8 black--text"
+          large
+        >
+          <v-icon>mdi-cart</v-icon> Adicionar o Carrinho
+        </v-btn>
+      </div>
+
+      <v-tabs>
+        <v-tab>DESCRIÇÃO</v-tab>
+        <v-tab-item>
+          <p v-bind:style="styles">{{ product.description }}</p>
+        </v-tab-item>
+      </v-tabs>
+
+      <!-- Produtos relacionados -->
+      <p class="text-center">Produtos Relacionados</p>
+      <v-divider></v-divider>
+      <div class="row text-center">
+        <div class="col-md-4 text-center" v-bind:style="styles">
+          <v-hover v-slot:default="{ hover }" open-delay="200">
+            <v-card :elevation="hover ? 16 : 2">
+              <v-img
+                class="white--text align-end"
+                height="100%"
+                :src="require('../assets/moletom.png')"
+              >
+              </v-img>
+              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
+              <div class="text-center">
+                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+              </div>
+            </v-card>
+          </v-hover>
+        </div>
+
+        <div class="col-md-4 text-center" v-bind:style="styles">
+          <v-hover v-slot:default="{ hover }" open-delay="200">
+            <v-card :elevation="hover ? 16 : 2">
+              <v-img
+                class="white--text align-end"
+                height="100%"
+                :src="require('../assets/moletom.png')"
+              >
+              </v-img>
+              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
+              <div class="text-center">
+                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+              </div>
+            </v-card>
+          </v-hover>
+        </div>
+
+        <div class="col-md-4 text-center" v-bind:style="styles">
+          <v-hover v-slot:default="{ hover }" open-delay="200">
+            <v-card :elevation="hover ? 16 : 2">
+              <v-img
+                class="white--text align-end"
+                height="100%"
+                :src="require('../assets/moletom.png')"
+              >
+              </v-img>
+              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
+              <div class="text-center">
+                <v-btn href="/produto" class="ma-2" outlined> Ver </v-btn>
+              </div>
+            </v-card>
+          </v-hover>
+        </div>
+      </div>
     </div>
-    <p class="price_text">Total:</p>
-    <p class="price">R$ {{ product.quantity * product.price }}</p>
-    <v-btn href="/carrinho" color="primary" class="mx-auto large black--text"
-      >Comprar</v-btn
-    >
-
-    <!-- <h2>Sugestões</h2>
-    <div class="sugestions">
-      <Product :images="product.suggetionsImages"/>        
-    </div> -->
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -115,6 +115,11 @@ export default {
   name: "Home",
   data: () => {
     return {
+      storeFont: 1.0,
+      styles: {
+        fontSize: '1.0em'
+      },
+      numericFontSize: 1.0,
       product: {
         images: ["moletom.png", "moletom2.png"],
         name: "Moletom Canguru",
@@ -130,6 +135,35 @@ export default {
   components: {
     Product,
   },
+  methods: {
+    aumentarFonte() {
+      this.numericFontSize += 0.1
+      if (this.numericFontSize >= 1.6) {
+        this.numericFontSize = 1.6;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    },
+    diminuirFonte() {
+      this.numericFontSize -= 0.1
+      if (this.numericFontSize <= 1.0) {
+        this.numericFontSize = 1.0;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    }
+  },
+  watch: {
+    '$store.state.fontSize': function() {
+      console.log(this.$store.state.fontSize)
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
+  }
 };
 </script>
 
@@ -196,4 +230,14 @@ p {
     border: black;
   }
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.v-card__text, .v-card__title {
+  word-break: normal; /* maybe !important  */
+}
+
 </style>

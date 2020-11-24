@@ -7,6 +7,8 @@ import Produto from "@/views/ProductView";
 import Carrinho from "@/views/Cart";
 import Registrar from "@/components/Register";
 import Finalizar from "@/components/Checkout";
+import Estoque from "@/components/ManageProducts";
+import Usuarios from "@/components/ManageUsers";
 
 Vue.use(Router);
 
@@ -46,6 +48,16 @@ export default new Router({
       path: "/entrar",
       component: Login,
       name: "Entrar"
+    },
+    {
+      path: "/estoque",
+      component: Estoque,
+      name: "Estoque"
+    },
+    {
+      path: "/usuarios",
+      component: Usuarios,
+      name: "Usuarios"
     }
   ],
   mode: "history"

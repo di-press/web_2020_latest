@@ -18,16 +18,16 @@
                   </v-img>
 
                   <v-card-text class="text--primary text-center">
-                    <div>Moletom Canguru</div>
+                    <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2" outlined>
+                    <v-btn v-bind:style="styles" href="/produto" class="ma-2" outlined>
                       Comprar
                     </v-btn>
-                    <v-btn href="/" class="ma-2" outlined>
+                    <!-- <v-btn href="/" class="ma-2" outlined>
                       <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                   </div>
                 </v-card>
               </v-hover>
@@ -43,16 +43,17 @@
                   </v-img>
 
                   <v-card-text class="text--primary text-center">
-                    <div>Moletom Canguru</div>
+                    <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2" outlined>
+                    <!-- <v-btn href="/produto" align="center" outlined> -->
+                    <v-btn v-bind:style="styles" href="/produto" class="ma-2" outlined>
                       Comprar
                     </v-btn>
-                    <v-btn href="/" class="ma-2" outlined>
+                    <!-- <v-btn href="/" class="ma-2" outlined>
                       <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                   </div>
                 </v-card>
               </v-hover>
@@ -68,16 +69,16 @@
                   </v-img>
 
                   <v-card-text class="text--primary text-center">
-                    <div>Moletom Canguru</div>
+                    <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2" outlined>
+                    <v-btn href="/produto" class="ma-2" v-bind:style="styles" outlined>
                       Comprar
                     </v-btn>
-                    <v-btn href="/" class="ma-2" outlined>
+                    <!-- <v-btn href="/" class="ma-2" outlined>
                       <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                   </div>
                 </v-card>
               </v-hover>
@@ -94,7 +95,44 @@
 export default {
   props: ["tipo"],
   data() {
-    return {};
+    return {
+      storeFont: 1.4,
+      styles: {
+        fontSize: '1.0em'
+      },
+      numericFontSize: 1.0,
+    };
   },
+  methods: {
+    aumentarFonte() {
+      //this.styles.fontFamily = "Arial";
+      this.numericFontSize += 0.1
+      if (this.numericFontSize >= 1.4) {
+        this.numericFontSize = 1.4;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    },
+    diminuirFonte() {
+      //this.styles.fontFamily = "Verdana";
+      this.numericFontSize -= 0.1
+      if (this.numericFontSize <= 1.0) {
+        this.numericFontSize = 1.0;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    }
+  },
+  watch: {
+    '$store.state.fontSize': function() {
+      console.log(this.$store.state.fontSize)
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
+  }
 };
 </script>

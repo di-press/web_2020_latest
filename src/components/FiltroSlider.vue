@@ -1,9 +1,9 @@
 <template>
   <div class="cursor-deslizante" v-bind:style="styles">
-    <v-row align="center">
+    <!--<v-row align="center">
       <v-btn color="orange darken-3" @click="aumentarFonte"> {{aumentar}} </v-btn>
       <v-btn color="orange darken-3" @click="diminuirFonte"> {{diminuir}} </v-btn>
-    </v-row>
+    </v-row>-->
     <div class="tipo">
       <label>
         <strong>{{ tipo }}</strong>
@@ -40,10 +40,9 @@ export default {
   props: ["tipo", "opcoes"],
   data() {
     return {
+      storeFont: 1.4,
       valorNoIntervalo: 1,
       styles: {
-        //fontFamily: 'Time New Roman',
-        //fontSize: '1.25 em',
         fontSize: '1.0em'
       },
       numericFontSize: 1.0,
@@ -62,11 +61,21 @@ export default {
       this.valorNoIntervalo = novoValor;
       let valorEscolhido = this.opcoes[this.valorNoIntervalo];
       this.$emit("change", valorEscolhido);
-    }
+    },
+    '$store.state.fontSize': function() {
+      console.log(this.$store.state.fontSize)
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
   },
   methods: {
     aumentarFonte() {
-      //this.styles.fontFamily = "Arial";
       this.numericFontSize += 0.1
       if (this.numericFontSize >= 1.5) {
         this.numericFontSize = 1.5;
@@ -74,7 +83,6 @@ export default {
       this.styles.fontSize = this.numericFontSize + 'em';
     },
     diminuirFonte() {
-      //this.styles.fontFamily = "Verdana";
       this.numericFontSize -= 0.1
       if (this.numericFontSize <= 0.8) {
         this.numericFontSize = 0.8;

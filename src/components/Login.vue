@@ -1,41 +1,48 @@
 <template>
-  <div class="hello">
-    <form
-      id="register"
-      @submit="checkForm"
-      action="https://vuejs.org/"
-      method="post"
-    >
-      <div class="container">
-        <h2>Entrar</h2>
-        <br />
-        <label for="email">E-mail:</label>
-        <input
-          v-model="form.mail"
-          type="email"
-          id="mail"
-          name="mail"
-          placeholder="Ex: nome@gmail.com"
-          required="true"
-        />
+  <v-app>
+    <div class="hello">
+      <form
+        id="register"
+        @submit="checkForm"
+        action="https://vuejs.org/"
+        method="post"
+      >
+        <div class="container">
+          <h2>Entrar</h2>
+          <br />
+          <label for="email">E-mail:</label>
+          <input
+            v-model="form.mail"
+            type="email"
+            id="mail"
+            name="mail"
+            placeholder="Ex: nome@gmail.com"
+            required="true"
+          />
 
-        <label for="password">Senha:</label>
-        <input
-          v-model="form.pass"
-          type="password"
-          id="pass"
-          name="pass"
-          placeholder=""
-          required="true"
-          @change="validatePassword($event)"
-        />
+          <label for="password">Senha:</label>
+          <input
+            v-model="form.pass"
+            type="password"
+            id="pass"
+            name="pass"
+            placeholder=""
+            required="true"
+            @change="validatePassword($event)"
+          />
 
-        <v-btn color="primary" class="mx-auto large black--text"
-          >Entrar</v-btn
-        >
-      </div>
-    </form>
-  </div>
+          <v-btn
+            color="primary"
+            class="mx-auto black--text"
+            large
+            @click="redirect"
+          >
+            Entrar
+          </v-btn>
+        </div>
+      </form>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -50,7 +57,14 @@ export default {
     };
   },
   methods: {
-    validatePassword: function (event) {},
+    redirect: function () {
+      if (this.form.mail === "admin" && this.form.pass === "admin") {
+        window.location.href = "/registrar";
+      } else {
+        window.location.href = "/carrinho";
+      }
+    },
+    // validatePassword: function (event) {},
     // nada a validar; a validação
     // é feita pelo post
   },

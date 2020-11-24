@@ -1,5 +1,6 @@
 <template>
   <div class="product-gallery">
+    <!-- Divisão para mostrar uma galeria de imagens disponíveis do produto para o usuário -->
     <div class="gallery">
       <div
         class="gallery-item-wrapper"
@@ -15,9 +16,15 @@
         ></div>
       </div>
     </div>
-    <div class="image" :style="mainImage"></div>
-    <!-- É tipo esse debaixo, só que não to achando o path pra imagem no seu código..-->
-    <!--<v-img contain :src="path_pra_imagem"></v-img>-->
+    <!--<div class="image" :style="mainImage"></div>-->
+    <v-card>
+      <v-img
+        :src="imageUrl"
+        contain
+        max-width="500"
+        alt="../assets/logo.png"
+      ></v-img>
+    </v-card>
   </div>
 </template>
 
@@ -27,7 +34,13 @@ export default {
   data: () => {
     return { activeImg: 0 };
   },
+  methods: {},
   computed: {
+    // Função utilizada para computar dinamicamente o caminho para a imagem
+    imageUrl() {
+       var imagem = require.context("../assets/", false, /\.png$/);
+       return imagem("./" + this.images[this.activeImg]);
+    },
     mainImage() {
       return {
         "background-image":
@@ -71,8 +84,9 @@ export default {
   .image {
     border: 1px solid black;
     margin-top: 16px;
-    width: 60vw;
+    width: 80vw;
     height: 60vh;
+    border-bottom-left-radius: 100px;
     @include bg-image;
   }
 }

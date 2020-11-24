@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col :cols="12">
         <v-card-text class="" tile outlined>
-          <v-card-title class="subheading">{{ tipo }}</v-card-title>
+          <v-card-title v-bind:style="styles" class="subheading font-weight-bold">{{ tipo }}</v-card-title>
           <v-divider></v-divider>
           <div class="row">
             <v-spacer></v-spacer>
@@ -17,12 +17,12 @@
                   >
                   </v-img>
 
-                  <v-card-text class="text--primary text-center">
+                  <v-card-text class="text--primary text-center font-weight-bold">
                     <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn v-bind:style="styles" href="/produto" class="ma-2 black--text" color="primary">
+                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>
@@ -42,13 +42,13 @@
                   >
                   </v-img>
 
-                  <v-card-text class="text--primary text-center">
+                  <v-card-text class="text--primary text-center font-weight-bold">
                     <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
                     <!-- <v-btn href="/produto" align="center" outlined> -->
-                    <v-btn v-bind:style="styles" href="/produto" class="ma-2 black--text" color="primary">
+                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>
@@ -68,12 +68,12 @@
                   >
                   </v-img>
 
-                  <v-card-text class="text--primary text-center">
+                  <v-card-text class="text--primary text-center font-weight-bold">
                     <div v-bind:style="styles">Moletom Canguru</div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2 black--text" color="primary" v-bind:style="styles">
+                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>
@@ -98,17 +98,17 @@ export default {
     return {
       storeFont: 1.4,
       styles: {
-        fontSize: '1.0em'
+        fontSize: '1.4em'
       },
-      numericFontSize: 1.0,
+      numericFontSize: 1.4,
     };
   },
   methods: {
     aumentarFonte() {
       //this.styles.fontFamily = "Arial";
       this.numericFontSize += 0.1
-      if (this.numericFontSize >= 1.4) {
-        this.numericFontSize = 1.4;
+      if (this.numericFontSize >= 1.8) {
+        this.numericFontSize = 1.8;
       }
       this.styles.fontSize = this.numericFontSize + 'em';
     },

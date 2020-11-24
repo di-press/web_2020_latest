@@ -70,10 +70,8 @@ export default {
       }
 
       console.log("ERRO");
+      alert("Usuário não cadastrado ou dados incorretos. Por favor, tente novamente.")
     },
-    // validatePassword: function (event) {},
-    // nada a validar; a validação
-    // é feita pelo post
   },
 };
 </script>
@@ -94,7 +92,7 @@ h2 {
 
 label {
   display: block;
-  text-transform: lowercase;
+  font-size: 1.3em;
 }
 
 input[type="text"],

@@ -22,7 +22,7 @@
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn v-bind:style="styles" href="/produto" class="ma-2" outlined>
+                    <v-btn v-bind:style="styles" href="/produto" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>
@@ -48,7 +48,7 @@
 
                   <div class="text-center">
                     <!-- <v-btn href="/produto" align="center" outlined> -->
-                    <v-btn v-bind:style="styles" href="/produto" class="ma-2" outlined>
+                    <v-btn v-bind:style="styles" href="/produto" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>
@@ -73,7 +73,7 @@
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2" v-bind:style="styles" outlined>
+                    <v-btn href="/produto" class="ma-2 black--text" color="primary" v-bind:style="styles">
                       Comprar
                     </v-btn>
                     <!-- <v-btn href="/" class="ma-2" outlined>

@@ -9,11 +9,12 @@
       >
         <div class="container">
           <div class="title">
-            <h2>cadastre-se</h2>
+            <h1>Cadastre-se</h1>
+            <br/>
             <p>Preencha o formulário abaixo</p>
           </div>
 
-          <label for="email">E-mail:</label>
+          <label for="Email">E-mail:</label>
           <input
             v-model="form.mail"
             type="email"
@@ -116,12 +117,7 @@
             />
             Desejo receber ofertas por e-mail
           </label>
-
-          <p>
-            Ao continuar, você concorda com a nossa
-            <a href="#">política de privacidade</a>.
-          </p>
-
+          <br/>
           <div class="center">
             <v-btn type="submit" color="primary" class="black--text" large>
               finalizar cadastro
@@ -132,7 +128,7 @@
 
       <p class="signin">
         <span>Já tem um cadastro? </span>
-        <a href="/entrar">entrar</a>
+        <a href="/entrar">Entrar</a>
       </p>
     </div>
   </v-app>
@@ -224,7 +220,7 @@ h2 {
 
 label {
   display: block;
-  text-transform: lowercase;
+  font-size: 1.3em;
 }
 
 input[type="text"],

@@ -7,12 +7,27 @@
       <h2>Preço: R$ {{ product.quantity * product.price }}</h2>
 
       <v-card-title color="black" class="font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
-      <v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
+      <!--<v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
         <v-radio label="P" value="P"></v-radio>
         <v-radio label="M" value="M"></v-radio>
         <v-radio label="G" value="G"></v-radio>
         <v-radio label="GG" value="GG"></v-radio>
       </v-radio-group>
+      -->
+
+      <v-container
+        class="px-0"
+        fluid
+      >
+        <v-radio-group v-model="radioGroup">
+          <v-radio
+            v-for="n in 3"
+            :key="n"
+            :label="`Radio ${n}`"
+            :value="n"
+          ></v-radio>
+        </v-radio-group>
+      </v-container>
 
       <v-card-title 
         color="black"

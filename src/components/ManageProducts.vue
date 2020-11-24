@@ -1,29 +1,38 @@
 <template class="cadastro_de_produtos">
   <div class="cadastro_de_produtos">
+    <!-- v-data é uma das estruturas do Vuetify com inflexibilidade em
+     alterar a fonte. Também não é possível alterar a informação "rows
+     per page", para padronizar a quantidade de prosutos visualizados
+     por página-->
+     <!-- "sort-by" permite ordenar cada coluna da tabela, quando se clica
+      na seta da interface de usuário
+     -->
     <v-data-table
       :headers="headers"
       :items="produtos"
       sort-by="id_produto"
       class="elevation-1"
+      id="categorias_cabecalho"
     >
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title class="cadastro_de_produtos"
             >Gerenciar Produtos</v-toolbar-title
           >
-          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-divider class="mx-6" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="1000px" max-height="900%">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
-                class="black--text mb-2"
+                class="black--text mv-8"
                 v-bind="attrs"
                 v-on="on"
               >
                 Cadastrar Produto
               </v-btn>
+              <br/>
             </template>
 
             <v-card class="ajuste">
@@ -161,6 +170,9 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <!-- Issue pendente no gitHub da biblioteca Vuetify.
+      Há warning, porém não há nenhuma limitação em relação
+      ao funcionamento -->
       <template v-slot:item.acoes="{ item }">
         <v-icon large class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon large @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -334,6 +346,9 @@ export default {
 .cadastro_de_produtos /deep/ label {
   font-size: 1.2em;
 }
+#categorias_cabecalho /deep/ label{
+  font-size: 1.4em;
+}
 
 /*.v-data-table /deep/ label {
     font-size: 1.4em;
@@ -365,4 +380,7 @@ table.v-table thead th {
   font-weight:bold;
   font-size:50px;
 }*/
+.v-text-field /deep/ label {
+    font-size: 1.4em;
+}
 </style>

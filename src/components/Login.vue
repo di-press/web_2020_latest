@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div class="hello">
+    <div class="div_do_login">
       <form
         id="register"
         @submit="checkForm"
@@ -8,7 +8,7 @@
         method="post"
       >
         <div class="container">
-          <h2>Entrar</h2>
+          <h1>Entrar</h1>
           <br />
           <label for="email">E-mail:</label>
           <input
@@ -35,6 +35,7 @@
             color="primary"
             class="mx-auto black--text"
             large
+            type="submit"
             @click="redirect"
           >
             Entrar
@@ -64,9 +65,6 @@ export default {
         window.location.href = "/";
       }
     },
-    // validatePassword: function (event) {},
-    // nada a validar; a validação
-    // é feita pelo post
   },
 };
 </script>
@@ -79,15 +77,16 @@ form {
 
 .container {
   padding: 10px;
+
 }
 
-h2 {
+h1 {
   text-align: center;
 }
 
 label {
   display: block;
-  text-transform: lowercase;
+  font-size: 1.3em;
 }
 
 input[type="text"],

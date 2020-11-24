@@ -17,10 +17,11 @@
 
       <v-text-field
         flat
-        solo-inverted
+        filled
+        background-color="grey lighten-1"
         hide-details
         prepend-inner-icon="mdi-magnify"
-        label="Buscar"
+        placeholder="Buscar"
         class="hidden-sm-and-down pl-10 ml-4"
       />
       <v-spacer />
@@ -211,7 +212,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /*text-align: center;*/
   color: #2c3e50;
-  background-color: #bdbdbd; /* Deixa cinza pra manter o contraste até acharmos uma cor melhor.. */
+  background-color: #d8e7fc; /* Deixa cinza pra manter o contraste até acharmos uma cor melhor.. */
 }
 
 .v-btn {

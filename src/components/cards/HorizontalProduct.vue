@@ -1,11 +1,11 @@
 <template>
-  <v-card outlined min-width="90%" class="mx-auto mb-5 pa-4">
+  <v-card outlined min-width="90%" class="mx-auto mb-5 pa-4" v-if="product.quantity > 0">
     <div class="d-flex">
       <div>
         <v-img
           :src="require('../../assets/moletom.png')"
-          width="120px"
-          height="120px"
+          width="150px"
+          height="150px"
         />
       </div>
 
@@ -14,12 +14,16 @@
           {{ product.name }}
         </v-card-title>
         <v-card-subtitle>
-          ${{ product.price }} | Qtd. {{ product.quantity }}</v-card-subtitle
+          R${{ product.price }} | Qtd. {{ product.quantity }}</v-card-subtitle
         >
 
-        <v-btn color="secondary" class="ml-4" outline small>
-          <v-icon small left>fa-minus</v-icon>
-          Remover produto
+        <v-btn color="primary" class="ml-4 my-1" outlined small @click="decrementCart">
+          <v-icon small left>mdi-minus-circle</v-icon>
+          Diminuir quantidade
+        </v-btn>
+        <v-btn color="primary" class="ml-4 my-1" outlined small @click="incrementCart">
+          <v-icon small left>mdi-plus-circle</v-icon>
+          Aumentar quantidade
         </v-btn>
       </div>
     </div>
@@ -33,6 +37,14 @@ export default {
     updateCart: Function,
     btnAction: String,
     i: Number,
+  },
+  methods: {
+    decrementCart() {
+      this.product.quantity -= 1;
+    },
+    incrementCart() {
+      this.product.quantity += 1;
+    }
   },
 };
 </script>

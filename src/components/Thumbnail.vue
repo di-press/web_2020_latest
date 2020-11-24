@@ -6,7 +6,7 @@
 
       <v-card-text>
         <div class="secao-preco" v-bind:style="detailsStyles">R$ {{ preco }}</div>
-        <v-btn href="/produto" v-bind:styles="detailsStyles" depressed color="orange"> Mais Informações </v-btn>
+        <v-btn href="/produto" v-bind:styles="detailsStyles" depressed color="primary" class="black--text"> Mais Informações </v-btn>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>

@@ -99,7 +99,7 @@
 
         <div class="center mb-8">
           <v-btn class="black--text" color="primary" large
-            >Finalizar Compra</v-btn
+            @click="concludeOrder">Finalizar Compra</v-btn
           >
         </div>
       </form>
@@ -132,6 +132,12 @@ export default {
       form: {},
     };
   },
+  methods: {
+    concludeOrder() {
+        alert('Pedido realizado com sucesso!');
+        window.location.href = "/";
+    },
+  }
 };
 </script>
 

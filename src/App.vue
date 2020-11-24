@@ -17,10 +17,10 @@
 
       <v-text-field
         flat
-        solo-inverted
+        filled
         hide-details
         prepend-inner-icon="mdi-magnify"
-        label="Buscar"
+        placeholder="Buscar"
         class="hidden-sm-and-down pl-10 ml-4"
       />
       <v-spacer />

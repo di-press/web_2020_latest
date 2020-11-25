@@ -194,13 +194,14 @@ export default {
 <style scoped>
 .filtro {
   flex: 1;
-  font-family: "Open Sans";
+  font-family: sans-serif;
   margin: 2%;
 }
 
 .filtro-lateral {
   width: 250px;
   margin: 10px;
+  margin-top: -5px;
 }
 p {
   color: rgb(0, 0, 0);

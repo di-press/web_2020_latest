@@ -5,7 +5,7 @@
         <div class="container">
           <section class="payment">
             <div class="title">
-              <h2>pagamento</h2>
+              <h2>Pagamento</h2>
             </div>
 
             <form-text
@@ -57,7 +57,7 @@
 
           <section class="delivery">
             <div class="title">
-              <h2>entrega</h2>
+              <h2>Entrega</h2>
             </div>
 
             <form-text

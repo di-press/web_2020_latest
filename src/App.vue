@@ -74,7 +74,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-bottom-navigation :value="activeBtn" horizontal class="primary" large>
+      <v-bottom-navigation fixed :value="activeBtn" horizontal class="primary" large>
         <a
           v-for="(categoria, index) in categorias"
           :key="index"
@@ -229,6 +229,10 @@ body,
 .v-main,
 .v-content {
   padding: 0;
+}
+
+.v-bottom-navigation {
+  top:60px;
 }
 
 .categorias {

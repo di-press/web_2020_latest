@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <span class="title">
-      <h2>carrinho</h2>
+      <h2>Carrinho</h2>
     </span>
     <v-cointainer>
       <v-row>

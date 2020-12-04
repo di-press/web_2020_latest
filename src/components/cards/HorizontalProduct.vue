@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined min-width="90%" class="mx-auto mb-5 pa-4" v-if="product.quantity > 0">
+  <v-card class="mx-auto" v-if="product.quantity > 0">
     <div class="d-flex">
       <div>
         <v-img

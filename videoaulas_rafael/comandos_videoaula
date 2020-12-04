@@ -1,0 +1,16 @@
+abrir o projeto no vscode, dar npm init
+ver comecinho aula 1
+
+get - pega algo
+put - altera um to do
+
+após instalado o nodemon, nodemon index.js não funciona
+fazer: npx nodemon ou npm run start
+
+lembrar de colocar no postman: trocar os ids la em cima, body, raw e JSON
+
+imagens: videoaula loom +- 20 min
+-não se armazena img em Mongo
+-amazon stace, superstorage do google, outras clouds(buckets)
+-criar um banco local de imgs (buckets), salva a referencia da img no pc comum hash
+e poe no banco a foto com o hash

@@ -49,7 +49,6 @@ export default {
 <style scoped>
 label {
   display: block;
-  text-transform: lowercase;
 }
 
 input[type="text"],

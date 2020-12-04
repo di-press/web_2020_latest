@@ -30,7 +30,7 @@
             type="password"
             id="pass"
             name="pass"
-            placeholder=""
+            placeholder="********"
             required="true"
             @change="validatePassword"
           />
@@ -41,7 +41,7 @@
             type="password"
             id="confirm_pass"
             name="confirm_pass"
-            placeholder=""
+            placeholder="********"
             required="true"
             @keyup="validatePassword"
           />
@@ -79,21 +79,6 @@
             required="true"
           />
 
-          <label for="gender">Sexo:</label>
-          <input
-            v-model="form.gender"
-            type="radio"
-            id="gender"
-            name="gender"
-            value="male"
-          />masculino
-          <input
-            v-model="form.gender"
-            type="radio"
-            id="gender"
-            name="gender"
-            value="female"
-          />feminino <br /><br />
 
           <label for="phone">Telefone:</label>
           <input

@@ -1,3 +1,4 @@
+<!-- LEMBRAR DE NÃO DEIXAR O USUARIO INSERIR INPUTS VAZIOS -->
 <template class="cadastro_de_produtos">
   <div class="cadastro_de_produtos">
     <!-- v-data é uma das estruturas do Vuetify com inflexibilidade em
@@ -77,22 +78,20 @@
                       ></v-text-field>
                     </v-col>
                     <v-col
-                      v-model="editedItem.cor"
                       class="d-flex"
                       cols="12"
                       sm="6"
                       md="4"
                     >
-                      <v-select :items="items" label="Cor"></v-select>
+                      <v-select v-model="editedItem.cor" :items="items" label="Cor"></v-select>
                     </v-col>
                     <v-col
-                      v-model="editedItem.tam_produto"
                       class="d-flex"
                       cols="12"
                       sm="6"
                       md="4"
                     >
-                      <v-select :items="tamanhos" label="Tamanho"></v-select>
+                      <v-select v-model="editedItem.tam_produto" :items="tamanhos" label="Tamanho"></v-select>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="6" md="4">
                       <v-select
@@ -112,6 +111,7 @@
                           id="area_texto"
                           name="input-7-1"
                           filled
+                          v-model="editedItem.descricao_produto"
                           label="Descrição do Produto"
                           color="grey"
                           auto-grow
@@ -126,6 +126,7 @@
                           name="input-7-1"
                           filled
                           label="Descrição da Imagem"
+                          v-model="editedItem.descricao_foto"
                           color="grey"
                           auto-grow
                           value="Caneca na cor amarela, com alça em formato retangular, com a estampa do CAASO na cor preta."
@@ -185,6 +186,9 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
 export default {
   data: () => ({
     dialog: false,
@@ -210,21 +214,25 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: "",
-      id_produto: 0,
-      preco_produto: 0,
+      id_produto: "",
+      preco_produto: "",
       unidades_estoque: 0,
       unidades_vendidas: 0,
-      lucro: 0,
+      lucro: "",
       cor: "",
       tam_produto: "",
       categoria_produto: "",
+      foto: "",
+      descricao_produto: "",
+      descricao_foto: "",
     },
     defaultItem: {
       name: "",
-      id_produto: 0,
-      preco_produto: 0,
+      id_produto: "",
+      preco_produto: "",
       unidades_estoque: 0,
       unidades_vendidas: 0,
+      lucro: "",
     },
   }),
 
@@ -245,56 +253,13 @@ export default {
 
   created() {
     this.initialize();
+
+    
   },
 
   methods: {
-    initialize() {
-      this.produtos = [
-        {
-          name: "Camiseta Style",
-          id_produto: 1,
-          preco_produto: "50,00",
-          unidades_estoque: 18,
-          unidades_vendidas: 9,
-          lucro: "450,00",
-          cor: "Azul",
-          tam_produto: "M",
-          categoria_produto: "Camisetas",
-        },
-        {
-          name: "Caneca CAASO",
-          id_produto: 2,
-          preco_produto: "30,00",
-          unidades_estoque: 100,
-          unidades_vendidas: 5,
-          lucro: "150,00",
-          cor: "Amarelo",
-          tam_produto: "",
-          categoria_produto: "",
-        },
-        {
-          name: "Bermuda Confortável",
-          id_produto: 3,
-          preco_produto: "60,00",
-          unidades_estoque: 13,
-          unidades_vendidas: 6,
-          lucro: "360,00",
-          cor: "Amarelo",
-          tam_produto: "G",
-          categoria_produto: "",
-        },
-        {
-          name: "Moleton Algodão estampa CAASO",
-          id_produto: 4,
-          preco_produto: "200,00",
-          unidades_estoque: 100,
-          unidades_vendidas: 10,
-          lucro: "2000,00",
-          cor: "Laranja",
-          tam_produto: "M",
-          categoria_produto: "Moletons",
-        },
-      ];
+    async initialize() {
+      this.produtos = await this.getProdutos();
     },
 
     editItem(item) {
@@ -329,15 +294,49 @@ export default {
         this.editedIndex = -1;
       });
     },
+      
+    async getProdutos(){
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos");
+      //aqui eu coloquei o this antes do response:
+      return response.data;
+    },
 
-    save() {
+    //a função "save" á análoga ao "add todo" do tutorial:
+    async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.produtos[this.editedIndex], this.editedItem);
+        
+        await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+        this.produtos = await this.getProdutos();
+
       } else {
         this.produtos.push(this.editedItem);
+
+        // parece que se desmembrar os parâmetros em várias linhas, não funciona direito!
+        // deixar todos os parâmetros em uma linha, feio mesmo
+        await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+
+        this.produtos = await this.getProdutos();
       }
-      this.close();
+      await this.close();
     },
+
+    // beforeCreate é a função do Vue para inicializar um componente.
+    // esta função carrega pra página de cadastrar produtos todos os produtos
+    // já existentes no banco de dados:
+    async beforeCreate(){
+    
+      console.log(this.response);
+      //atribui os produtos do banco à variável "produtos":
+      this.produtos = await this.getProdutos();
+    },
+
+    async removeProduto(_id){
+      await axios.delete(`http://localhost:3000/api/produtos/${_id}`);
+      this.produtos = await this.getProdutos();
+
+    }
   },
 };
 </script>

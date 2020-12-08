@@ -64,46 +64,11 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.rua_usuario"
-                        label="Rua. Ex: Av. São Carlos"
+                        v-model="editedItem.endereco"
+                        label="Ex: Av. São Carlos, 500, Centro - São Carlos"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.bairro_usuario"
-                        label="Bairro. Ex: Centro"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.num_usuario"
-                        label="Número. Ex: 400"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.complemento_usuario"
-                        label="Complemento. Ex: apto 22"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.cidade_usuario"
-                        label="Cidade. Ex: São Carlos"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.estado_usuario"
-                        label="Estado. Ex: SP"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.pais_usuario"
-                        label="País. Ex: Brasil"
-                      ></v-text-field>
-                    </v-col>
+                    
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -178,23 +143,17 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: "",
-      id_usuario: 0,
+      id_usuario: 1,
       email_usuario: "",
-      telefone: 0,
-      rua_usuario: "",
-      bairro_usuario: "",
-      cidade_usuario: "",
-      complemento_usuario: "",
-      num_usuario: 0,
-      estado_usuario: "",
-      pais_usuario: "",
+      telefone: 1697227864,
+      endereco: "",
     },
     defaultItem: {
       name: "",
-      id_usuario: 0,
-      email_usuario: 0,
-      telefone: 0,
-      rua_usuario: 0,
+      id_usuario: 1,
+      email_usuario: "",
+      telefone: 1697227864,
+      endereco: "",
     },
   }),
 
@@ -219,60 +178,7 @@ export default {
 
   methods: {
     initialize() {
-      this.usuarios = [
-        {
-          name: "Gabriela Oliveira",
-          id_usuario: 1,
-          email_usuario: "gabizinha@gmail.com.br",
-          telefone: "(16)993371458",
-          rua_usuario: "Rua das Palmeiras",
-          bairro_usuario: "",
-          cidade_usuario: "São Carlos",
-          complemento_usuario: "Apto 33",
-          num_usuario: 40,
-          estado_usuario: "SP",
-          pais_usuario: "Brasil",
-        },
-        {
-          name: "Marcos da Silva",
-          id_usuario: 2,
-          email_usuario: "marcosdasilva@hotmail.com",
-          telefone: "(11)993841279",
-          rua_usuario: "Rua das Acácias",
-          bairro_usuario: "Jd Da Vida",
-          cidade_usuario: "São Carlos",
-          complemento_usuario: "Apto 14",
-          num_usuario: 68,
-          estado_usuario: "SP",
-          pais_usuario: "Brasil",
-        },
-        {
-          name: "Ângela Machado",
-          id_usuario: 4,
-          email_usuario: "angela@hotmail.com",
-          telefone: "(11)99475339",
-          rua_usuario: "Rua das Acácias",
-          bairro_usuario: "Jd Da Vida",
-          cidade_usuario: "São Carlos",
-          complemento_usuario: "Apto 9",
-          num_usuario: 68,
-          estado_usuario: "SP",
-          pais_usuario: "Brasil",
-        },
-        {
-          name: "Rafael Duarte",
-          id_usuario: 5,
-          email_usuario: "rafa@hotmail.com",
-          telefone: "(11)993841279",
-          rua_usuario: "Rua Beija FLor",
-          bairro_usuario: "Monjolinho",
-          cidade_usuario: "São Carlos",
-          complemento_usuario: "",
-          num_usuario: 77,
-          estado_usuario: "SP",
-          pais_usuario: "Brasil",
-        },
-      ];
+      this.usuarios = [];
     },
 
     editItem(item) {

@@ -79,7 +79,16 @@
             required="true"
           />
 
-
+          <label for="adress">Endereço:</label>
+          <input
+            v-model="form.address"
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Ex: Av São carlos, 500, Centro - São Carlos"
+            pattern="[a-zA-Z]+$"
+            required="true"
+          />
           <label for="phone">Telefone:</label>
           <input
             v-model="form.phone"
@@ -136,6 +145,7 @@ export default {
         id: null,
         name: null,
         birth: null,
+        address: null,
         gender: null,
         phone: null,
         subscribe: false,

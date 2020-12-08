@@ -298,7 +298,7 @@ export default {
     async getProdutos(){
       //método get: pega todos os produtos do Mongo:
       const response = await axios.get("http://localhost:3000/api/produtos");
-      //aqui eu coloquei o this antes do response:
+
       return response.data;
     },
 

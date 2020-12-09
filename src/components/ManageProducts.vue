@@ -193,8 +193,8 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
-    items: ["Azul", "Amarelo", "Laranja"],
-    tamanhos: ["PP", "P", "M", "G", "GG"],
+    items: ["Azul", "Amarelo", "Laranja", "Preto"],
+    tamanhos: ["P", "M", "G", "GG"],
     categorias: ["Moletons", "Acessórios", "Caneca", "Camiseta"],
     headers: [
       {

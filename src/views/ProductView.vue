@@ -2,15 +2,7 @@
   <v-app>
     <div class="home">
       <h1>{{ product.name }}</h1>
-      <Product :images="product.images" />
-
-      <!--<v-radio-group v-model="row" class="ml-2" row v-bind:style="styles">
-        <v-radio label="P" value="P"></v-radio>
-        <v-radio label="M" value="M"></v-radio>
-        <v-radio label="G" value="G"></v-radio>
-        <v-radio label="GG" value="GG"></v-radio>
-      </v-radio-group>
-      -->
+      <Product :images="product.foto" />
 
       <v-container class="px-0" fluid>
         <v-row dense>
@@ -24,9 +16,7 @@
                 <v-tabs>
                   <v-tab v-bind:style="styles" class="black--text font-weight-bold">Descrição</v-tab>
                   <v-tab-item>
-                    <!-- Deixei as informações visuais hardcoded por motivos de: não achei >
-                    <p>Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.</p> -->
-                    <p class="font-weight-bold" v-bind:style="styles">{{ product.description }}</p>
+                    <p class="font-weight-bold" v-bind:style="styles">{{ product.descricao_produto }}</p>
                   </v-tab-item>
                 </v-tabs>
                 <br/>
@@ -34,8 +24,7 @@
                   <br/>
                   <v-tab v-bind:style="styles" class="black--text font-weight-bold">Informações visuais</v-tab>
                   <v-tab-item>
-                  <!-- Deixei as informações visuais hardcoded por motivos de: pressa-->
-                  <p class="font-weight-bold" v-bind:style="styles">{{ product.visualDescription }}</p>
+                  <p class="font-weight-bold" v-bind:style="styles">{{ product.descricao_foto }}</p>
                   </v-tab-item>
                 </v-tabs>
                 <v-card-title color="black" class="black--text font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
@@ -49,7 +38,7 @@
                   Quantidade 
                 </v-card-title>
                 <v-text-field
-                  v-model="product.quantity"
+                  v-model="quantity"
                   type="number"
                   outlined
                   style="width: 100px"
@@ -142,24 +131,15 @@ export default {
   name: "Home",
   data: () => {
     return {
+      quantity: 1,
+      preco: 0.0,
+      product: [],
       storeFont: 1.4,
       reveal: false,
       styles: {
         fontSize: '1.4em'
       },
       numericFontSize: 1.4,
-      product: {
-        images: ["moletom.png", "moletom2.png"],
-        name: "Moletom Canguru",
-        description:
-          "Os moletons são de ótima qualidade. Possuem capuz e bolsos. Este produto é apenas para compras em atacado.",
-        visualDescription:
-          "#PraCegoVer: Foto de um moletom laranja, com capuz e bolso frontal. Possui estampa frontal com a mensagem \"Sua arte, seu curso, suas cores, beuni\".",
-        price: 110.99,
-        quantity: 1,
-        cores: null,
-        tamanho: null,
-      },
     };
   },
   components: {
@@ -167,10 +147,18 @@ export default {
   },
   computed: {
     computePrice() {
-      return (this.product.quantity * this.product.price).toFixed(2) + '';
+      return (this.quantity * this.preco).toFixed(2) + '';
     }
   },
+  created() {
+    this.initialize()
+  },
   methods: {
+    initialize() {
+      //console.info("PAGINA DOS PRODUTOS " + this.$store.state.selectedProduct.name);
+      this.product = this.$store.state.selectedProduct;
+      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+    },
     aumentarFonte() {
       this.numericFontSize += 0.1
       if (this.numericFontSize >= 1.8) {
@@ -188,7 +176,7 @@ export default {
   },
   watch: {
     '$store.state.fontSize': function() {
-      console.log(this.$store.state.fontSize)
+      //console.log(this.$store.state.fontSize)
       if (this.$store.state.fontSize > this.storeFont) {
         this.aumentarFonte()
       }

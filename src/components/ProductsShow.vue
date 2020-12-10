@@ -22,7 +22,7 @@
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
+                    <v-btn @click="atualizarProduto(indice)" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
                   </div>
@@ -50,6 +50,14 @@ export default {
     };
   },
   methods: {
+    atualizarProduto(indice) {
+      //console.info("ATUALIZAR PRODUTO " + this.$props.produtos[indice].name);
+      this.$store.dispatch('updateProduct', this.$props.produtos[indice]);
+      this.$router.push("/produto");
+      // Após ir para a próxima página, retrocedemos a nova página para o topo
+      document.body.scrollTop = 0; //  Para o navegador Safari
+      document.documentElement.scrollTop = 0; // Para o navegador Chrome, Firefox, IE e Opera
+    },
     aumentarFonte() {
       //this.styles.fontFamily = "Arial";
       this.numericFontSize += 0.1
@@ -69,7 +77,7 @@ export default {
   },
   watch: {
     '$store.state.fontSize': function() {
-      console.log(this.$store.state.fontSize)
+      //console.log(this.$store.state.fontSize)
       if (this.$store.state.fontSize > this.storeFont) {
         this.aumentarFonte()
       }

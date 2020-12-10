@@ -1,25 +1,8 @@
 <template>
   <div class="product-gallery">
-    <!-- Divisão para mostrar uma galeria de imagens disponíveis do produto para o usuário -->
-    <div class="gallery">
-      <div
-        class="gallery-item-wrapper"
-        v-for="(item, index) in images"
-        :key="'img' + index"
-        @click="activeImg = index"
-      >
-        <div
-          class="gallery-item"
-          :style="{
-            'background-image': 'url(' + require('../assets/' + item) + ')',
-          }"
-        ></div>
-      </div>
-    </div>
-    <!--<div class="image" :style="mainImage"></div>-->
-    <v-card>
+    <v-card class="mx-auto">
       <v-img
-        :src="imageUrl"
+        :src="images"
         contain
         max-width="500"
         alt="../assets/logo.png"
@@ -31,22 +14,8 @@
 <script>
 export default {
   props: ["images"],
-  data: () => {
-    return { activeImg: 0 };
-  },
-  methods: {},
-  computed: {
-    // Função utilizada para computar dinamicamente o caminho para a imagem
-    imageUrl() {
-       var imagem = require.context("../assets/", false, /\.png$/);
-       return imagem("./" + this.images[this.activeImg]);
-    },
-    mainImage() {
-      return {
-        "background-image":
-          "url(" + require("../assets/" + this.images[this.activeImg]) + ")",
-      };
-    },
+  data() {
+    return {};
   },
 };
 </script>

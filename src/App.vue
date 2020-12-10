@@ -164,7 +164,6 @@ export default {
         { title: "Moletons" },
         { title: "Camisetas" },
         { title: "Shorts" },
-        { title: "Brindes" },
       ],
 
       universidades: [{ title: "CAASO" }, { title: "Federal" }],

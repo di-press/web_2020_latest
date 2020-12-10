@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import ProductList from "../components/cart/ProductList.vue";
 import CheckoutBox from "../components/cart/CheckoutBox.vue";
 
@@ -28,7 +30,7 @@ export default {
   },
   data: function () {
     return {
-      products: [
+      products: [/*
         {
           name: "Moletom",
           quantity: 1,
@@ -41,7 +43,7 @@ export default {
           price: 80,
           //image: require('../../assets/moletom.png'),
         },
-      ],
+      */],
     };
   },
   computed: {
@@ -55,8 +57,28 @@ export default {
         return sum + product.quantity;
       }, 0);
     },
-  },  
+  },
+  async beforeCreate() {
+    this.products = await getItens();
+  }
 };
+
+async function getItens() {
+    const response = await axios.get("http://localhost:3000/api/carrinho");
+
+    const products = response.data;
+
+    for (let product of products) {
+      console.log(product);  
+      const tmp = await axios.get(`http://localhost:3000/api/produtos/${ product.ref }`);
+      console.log(tmp.data);
+      product.name = tmp.data.name;
+      product.price = tmp.data.preco_produto;
+      product.image_url = tmp.data.foto;
+    }
+    
+    return products;
+  }
 </script>
 
 <style scoped>

@@ -38,7 +38,7 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         class="cadastro_usuarios"
-                        v-model="editedItem.name"
+                        v-model="editedItem.nome"
                         label="Nome"
                       ></v-text-field>
                     </v-col>
@@ -51,7 +51,7 @@
                     <br />
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.email_usuario"
+                        v-model="editedItem.email"
                         label="Email. Ex: marianasilva@gmail.com"
                         class="cabecalho"
                       ></v-text-field>
@@ -123,6 +123,9 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
 export default {
   data: () => ({
     dialog: false,
@@ -132,26 +135,26 @@ export default {
         text: "Nome do Usuário",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "nome",
       },
       { text: "ID", value: "id_usuario" },
-      { text: "Email", value: "email_usuario" },
+      { text: "Email", value: "email" },
       { text: "Telefone", value: "telefone" },
       { text: "Ações", value: "acoes", sortable: false },
     ],
     usuarios: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
+      nome: "",
       id_usuario: 1,
-      email_usuario: "",
+      email: "",
       telefone: 1697227864,
       endereco: "",
     },
     defaultItem: {
-      name: "",
+      nome: "",
       id_usuario: 1,
-      email_usuario: "",
+      email: "",
       telefone: 1697227864,
       endereco: "",
     },
@@ -177,9 +180,19 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.usuarios = [];
+    async initialize() {
+      this.usuarios = await this.getUsuarios();
     },
+        // beforeCreate é a função do Vue para inicializar um componente.
+    // esta função carrega pra página de cadastrar produtos todos os produtos
+    // já existentes no banco de dados:
+    async beforeCreate(){
+    
+      console.log(this.response);
+      //atribui os produtos do banco à variável "produtos":
+      this.usuarios = await this.getUsuarios();
+    },
+
 
     editItem(item) {
       this.editedIndex = this.usuarios.indexOf(item);
@@ -214,12 +227,30 @@ export default {
       });
     },
 
-    save() {
+    async getUsuarios(){
+      //método get: pega todos os usuários do Mongo:
+      const response = await axios.get("http://localhost:3000/api/auth/find");
+
+      return response.data;
+    },
+
+    async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.usuarios[this.editedIndex], this.editedItem);
-      } else {
+        
+        //await axios.post("http://localhost:3000/api/auth/signup", {nome: this.editedItem.nome, senha: this.editedItem.});
+        //this.usuarios = await this.getUsuarios();
+      
+      } else {        
         this.usuarios.push(this.editedItem);
+
+        // parece que se desmembrar os parâmetros em várias linhas, não funciona direito!
+        // deixar todos os parâmetros em uma linha, feio mesmo
+        //await axios.post("http://localhost:3000/api/auth/signup", {nome: this.editedItem.nome, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+
+        //this.produtos = await this.getUsuarios();
       }
+      //await this.close();
       this.close();
     },
   },

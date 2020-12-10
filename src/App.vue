@@ -152,6 +152,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "App",
   data() {
@@ -170,7 +172,37 @@ export default {
       activeBtn: 1,
     };
   },
+  created() {
+    this.initialize()
+  },
   methods: {
+    async initialize() {
+      this.$store.state.novidades = await this.findNovidades();
+      this.$store.state.promocoes = await this.findPromocoes();
+      this.$store.state.exclusivos = await this.findExclusivos();
+    },
+
+    async findNovidades() {
+      //método get: pega todos os produtos com a categoria Novidades do Mongo(3 produtos):
+      const response = await axios.get("http://localhost:3000/api/produtos/findNovidades");
+
+      return response.data;
+    },
+    
+    async findPromocoes() {
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos/findPromocoes");
+
+      return response.data;
+    },
+
+    async findExclusivos() {
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos/findExclusivos");
+
+      return response.data;
+    },
+
     aumentarFontes() {
       console.info("AUMENTAR");
 

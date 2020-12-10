@@ -64,68 +64,14 @@
         </v-row>
       </v-container>      
 
-      <!-- Produtos relacionados -->
-      <p class="text-center" v-bind:style="styles">Produtos Relacionados</p>
-      <v-divider></v-divider>
-      <div class="row text-center">
-        <div class="col-md-4 text-center" v-bind:style="styles">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="100%"
-                :src="require('../assets/moletom.png')"
-              >
-              </v-img>
-              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
-              <div class="text-center">
-                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-
-        <div class="col-md-4 text-center" v-bind:style="styles">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="100%"
-                :src="require('../assets/moletom.png')"
-              >
-              </v-img>
-              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
-              <div class="text-center">
-                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-
-        <div class="col-md-4 text-center" v-bind:style="styles">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="100%"
-                :src="require('../assets/moletom.png')"
-              >
-              </v-img>
-              <v-card-title color="black" v-bind:style="styles"> Moletom Canguru </v-card-title>
-              <div class="text-center">
-                <v-btn href="/produto" class="ma-2 black--text" color="primary"> Ver </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-      </div>
+      <produtos tipo="PROMOÇÕES" :produtos="promocoes"></produtos>
     </div>
-    <br/>
   </v-app>
 </template>
 
 <script>
 import Product from "@/components/Product";
+import produtos from "../components/ProductsShow.vue";
 
 export default {
   name: "Home",
@@ -134,6 +80,7 @@ export default {
       quantity: 1,
       preco: 0.0,
       product: [],
+      promocoes: [],
       storeFont: 1.4,
       reveal: false,
       styles: {
@@ -144,6 +91,7 @@ export default {
   },
   components: {
     Product,
+    produtos,
   },
   computed: {
     computePrice() {
@@ -158,6 +106,7 @@ export default {
       //console.info("PAGINA DOS PRODUTOS " + this.$store.state.selectedProduct.name);
       this.product = this.$store.state.selectedProduct;
       this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+      this.promocoes = this.$store.state.promocoes;
     },
     aumentarFonte() {
       this.numericFontSize += 0.1
@@ -172,7 +121,7 @@ export default {
         this.numericFontSize = 1.0;
       }
       this.styles.fontSize = this.numericFontSize + 'em';
-    }
+    },
   },
   watch: {
     '$store.state.fontSize': function() {
@@ -186,6 +135,13 @@ export default {
 
       this.storeFont = this.$store.state.fontSize;
     },
+    '$store.state.selectedProduct': function() {
+      this.product = this.$store.state.selectedProduct;
+      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+    },
+    '$store.state.promocoes': function() {
+      this.promocoes = this.$store.state.promocoes;
+    }
   }
 };
 </script>

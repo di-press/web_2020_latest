@@ -27,13 +27,15 @@
                   <p class="font-weight-bold" v-bind:style="styles">{{ product.descricao_foto }}</p>
                   </v-tab-item>
                 </v-tabs>
-                <v-card-title color="black" class="black--text font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
-                <v-radio-group v-model="row" class="ml-2 black--text font-weight-bold" row v-bind:style="styles">
-                  <v-radio class="vueradio" label="P" value="P"></v-radio>
-                  <v-radio class="vueradio" label="M" value="M"></v-radio>
-                  <v-radio class="vueradio" label="G" value="G"></v-radio>
-                  <v-radio class="vueradio" label="GG" value="GG"></v-radio>
-                </v-radio-group>
+                <div v-if="product.tam_produto.length !== 0">
+                  <v-card-title color="black" class="black--text font-weight-bold" v-bind:style="styles"> Tamanhos </v-card-title>
+                  <v-radio-group v-model="row" class="ml-2 black--text font-weight-bold" row v-bind:style="styles">
+                    <v-radio class="vueradio" label="P" value="P"></v-radio>
+                    <v-radio class="vueradio" label="M" value="M"></v-radio>
+                    <v-radio class="vueradio" label="G" value="G"></v-radio>
+                    <v-radio class="vueradio" label="GG" value="GG"></v-radio>
+                  </v-radio-group>
+                </div>
                 <v-card-title  color="black" class="black--text font-weight-bold" v-bind:style="styles">
                   Quantidade 
                 </v-card-title>

@@ -17,11 +17,11 @@
           R${{ product.price }} | Qtd. {{ product.quantity }}</v-card-subtitle
         >
 
-        <v-btn color="primary" class="ml-4 my-1" outlined small @click="decrementCart">
+        <v-btn color="primary" class="ml-4 my-1" outlined small @click="$emit('decrement')">
           <v-icon small left>mdi-minus-circle</v-icon>
           Diminuir quantidade
         </v-btn>
-        <v-btn color="primary" class="ml-4 my-1" outlined small @click="incrementCart">
+        <v-btn color="primary" class="ml-4 my-1" outlined small @click="$emit('increment')">
           <v-icon small left>mdi-plus-circle</v-icon>
           Aumentar quantidade
         </v-btn>
@@ -38,13 +38,6 @@ export default {
     btnAction: String,
     i: Number,
   },
-  methods: {
-    decrementCart() {
-      this.product.quantity -= 1;
-    },
-    incrementCart() {
-      this.product.quantity += 1;
-    }
-  },
+  emits: ['increment', 'decrement']
 };
 </script>

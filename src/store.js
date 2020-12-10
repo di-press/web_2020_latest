@@ -1,19 +1,24 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    plugins: [ createPersistedState() ],
     state: {
         fontSize: 1.4,
         selectedProduct: [],
+        novidades: [],
+        promocoes: [],
+        exclusivos: [],
     },
     mutations: {
         setFont(state, size) {
             state.fontSize = size
         },
         setProduct(state, product) {
-            //console.info("MUTATION " + product.name);
+            console.info("MUTATION " + product.name);
             state.selectedProduct = product
         }
     },
@@ -27,7 +32,7 @@ export default new Vuex.Store({
             commit('setFont', state.fontSize-0.1);
         },
         updateProduct({commit}, product) {
-            //console.info("ACTION PRODUCT");
+            console.info("ACTION PRODUCT");
             commit('setProduct', product);
         }
     }

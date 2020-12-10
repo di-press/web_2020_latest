@@ -49,7 +49,8 @@
         <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
           >Usuários
         </span>
-        <v-badge content="1" value="1" color="red">
+        <!-- Tentar deixar dinâmico o número de produtos no ícone do carrinho -->
+        <v-badge content="2" value="1" color="#4dd0e1">
           <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
             >mdi-cart</v-icon
           >

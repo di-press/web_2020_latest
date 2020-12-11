@@ -1,13 +1,21 @@
 <template>
   <v-app>
-    <div class="home">
-      <h1>{{ product.name }}</h1>
-      <Product :images="product.foto" />
-
-      <v-container class="px-0" fluid>
-        <v-row dense>
-          <v-col cols="12">
-            <v-card class="mx-auto">
+    <div class="d-flex ml-15 mr-15">
+      <v-row>
+        <div class="ma-10">
+          <v-card>
+            <v-img
+            :src="product.foto"
+            contain
+            max-width="400"
+            alt="../assets/logo.png"
+            ></v-img>
+          </v-card>
+        </div>
+        <div>
+          <v-container>
+            <v-card max-width="700" class="mt-7">
+              <h1>{{ product.name }}</h1>
               <v-card-text>
                 <p class="display-1 text--primary align-center">
                   Preço: R$ {{ computePrice }}
@@ -62,17 +70,15 @@
                 </div>
               </v-card-text>
             </v-card>
-          </v-col>
-        </v-row>
-      </v-container>      
-
-      <produtos tipo="PROMOÇÕES" :produtos="promocoes"></produtos>
+          </v-container>
+        </div>
+      </v-row>
     </div>
+    <produtos tipo="PROMOÇÕES" :produtos="promocoes"></produtos>
   </v-app>
 </template>
 
 <script>
-import Product from "@/components/Product";
 import produtos from "../components/ProductsShow.vue";
 
 export default {
@@ -92,7 +98,6 @@ export default {
     };
   },
   components: {
-    Product,
     produtos,
   },
   computed: {
@@ -149,29 +154,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  width: 100vw;
-  max-width: 768px;
-  overflow: hidden;
-  margin: 0 auto;
-}
-
-.price {
-  text-align: center;
-  font-weight: bold;
-  font-size: 2.5rem;
-}
-
-.quantity {
-  text-align: center;
-  border: 3px solid #c3c3c3;
-}
-
-.price_text {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.5rem;
-}
 
 h1 {
   text-align: center;
@@ -179,37 +161,6 @@ h1 {
   margin: 16px 0 0;
   font-family: Galada, arial;
   font-size: 3rem;
-}
-
-h2 {
-  text-align: center;
-  padding: 16px;
-  margin: 16px 0 0;
-  font-family: Galada, arial;
-  font-size: 2rem;
-}
-
-p {
-  padding: 16px;
-  margin: 0;
-  font-family: Abel, arial;
-  font-size: 1.3rem;
-}
-
-.title {
-  color: black;
-}
-
-.quantity-text {
-  display: flex;
-}
-
-.order {
-  padding: 16px;
-
-  .quantidade {
-    border: black;
-  }
 }
 
 .center {

@@ -7,78 +7,24 @@
           <v-divider></v-divider>
           <div class="row">
             <v-spacer></v-spacer>
-            <div class="col-12 col-md-3 col-sm-6 col-xs-6 text-center">
+            <div class ="col-12 col-md-3" v-for="(detalhesDoProduto, indice) in produtos" :key="indice">
               <v-hover v-slot:default="{ hover }" open-delay="200">
                 <v-card :elevation="hover ? 16 : 2">
                   <v-img
                     class="white--text align-end"
                     contain
-                    :src="require('../assets/moletom.png')"
+                    :src="detalhesDoProduto.foto"
                   >
                   </v-img>
 
                   <v-card-text class="text--primary text-center font-weight-bold">
-                    <div v-bind:style="styles">Moletom Canguru</div>
+                    <div v-bind:style="styles"> {{ detalhesDoProduto.name }} </div>
                   </v-card-text>
 
                   <div class="text-center">
-                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
+                    <v-btn @click="atualizarProduto(indice)" class="ma-2 black--text" color="primary">
                       Comprar
                     </v-btn>
-                    <!-- <v-btn href="/" class="ma-2" outlined>
-                      <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn> -->
-                  </div>
-                </v-card>
-              </v-hover>
-            </div>
-            <div class="col-12 col-md-3 col-sm-6 col-xs-6 text-center">
-              <v-hover v-slot:default="{ hover }" open-delay="200">
-                <v-card :elevation="hover ? 16 : 2">
-                  <v-img
-                    class="white--text align-end"
-                    contain
-                    :src="require('../assets/moletom.png')"
-                  >
-                  </v-img>
-
-                  <v-card-text class="text--primary text-center font-weight-bold">
-                    <div v-bind:style="styles">Moletom Canguru</div>
-                  </v-card-text>
-
-                  <div class="text-center">
-                    <!-- <v-btn href="/produto" align="center" outlined> -->
-                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
-                      Comprar
-                    </v-btn>
-                    <!-- <v-btn href="/" class="ma-2" outlined>
-                      <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn> -->
-                  </div>
-                </v-card>
-              </v-hover>
-            </div>
-            <div class="col-12 col-md-3 col-sm-6 col-xs-6 text-center">
-              <v-hover v-slot:default="{ hover }" open-delay="200">
-                <v-card :elevation="hover ? 16 : 2">
-                  <v-img
-                    class="white--text align-end"
-                    contain
-                    :src="require('../assets/moletom.png')"
-                  >
-                  </v-img>
-
-                  <v-card-text class="text--primary text-center font-weight-bold">
-                    <div v-bind:style="styles">Moletom Canguru</div>
-                  </v-card-text>
-
-                  <div class="text-center">
-                    <v-btn href="/produto" class="ma-2 black--text" color="primary">
-                      Comprar
-                    </v-btn>
-                    <!-- <v-btn href="/" class="ma-2" outlined>
-                      <v-icon size="24px">mdi-heart</v-icon>
-                    </v-btn> -->
                   </div>
                 </v-card>
               </v-hover>
@@ -93,7 +39,7 @@
 
 <script>
 export default {
-  props: ["tipo"],
+  props: ["tipo", "produtos"],
   data() {
     return {
       storeFont: 1.4,
@@ -104,6 +50,14 @@ export default {
     };
   },
   methods: {
+    atualizarProduto(indice) {
+      //console.info("ATUALIZAR PRODUTO " + this.$props.produtos[indice].name);
+      this.$store.dispatch('updateProduct', this.$props.produtos[indice]);
+      this.$router.push("/produto");
+      // Após ir para a próxima página, retrocedemos a nova página para o topo
+      document.body.scrollTop = 0; //  Para o navegador Safari
+      document.documentElement.scrollTop = 0; // Para o navegador Chrome, Firefox, IE e Opera
+    },
     aumentarFonte() {
       //this.styles.fontFamily = "Arial";
       this.numericFontSize += 0.1
@@ -123,7 +77,7 @@ export default {
   },
   watch: {
     '$store.state.fontSize': function() {
-      console.log(this.$store.state.fontSize)
+      //console.log(this.$store.state.fontSize)
       if (this.$store.state.fontSize > this.storeFont) {
         this.aumentarFonte()
       }

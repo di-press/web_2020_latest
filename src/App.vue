@@ -49,7 +49,8 @@
         <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
           >Usuários
         </span>
-        <v-badge content="1" value="1" color="red">
+        <!-- Tentar deixar dinâmico o número de produtos no ícone do carrinho -->
+        <v-badge content="2" value="1" color="#4dd0e1">
           <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
             >mdi-cart</v-icon
           >
@@ -151,6 +152,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "App",
   data() {
@@ -163,14 +166,43 @@ export default {
         { title: "Moletons" },
         { title: "Camisetas" },
         { title: "Shorts" },
-        { title: "Brindes" },
       ],
 
       universidades: [{ title: "CAASO" }, { title: "Federal" }],
       activeBtn: 1,
     };
   },
+  created() {
+    this.initialize()
+  },
   methods: {
+    async initialize() {
+      this.$store.state.novidades = await this.findNovidades();
+      this.$store.state.promocoes = await this.findPromocoes();
+      this.$store.state.exclusivos = await this.findExclusivos();
+    },
+
+    async findNovidades() {
+      //método get: pega todos os produtos com a categoria Novidades do Mongo(3 produtos):
+      const response = await axios.get("http://localhost:3000/api/produtos/findNovidades");
+
+      return response.data;
+    },
+    
+    async findPromocoes() {
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos/findPromocoes");
+
+      return response.data;
+    },
+
+    async findExclusivos() {
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos/findExclusivos");
+
+      return response.data;
+    },
+
     aumentarFontes() {
       console.info("AUMENTAR");
 

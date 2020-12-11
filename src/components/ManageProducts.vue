@@ -63,6 +63,8 @@
                         v-model="editedItem.preco_produto"
                         label="Preço (R$)"
                         class="cabecalho"
+                        prefix="$"
+                        suffix = ".00"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -193,9 +195,9 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
-    items: ["Azul", "Amarelo", "Laranja", "Preto"],
+    items: ["Azul", "Amarelo", "Preto"],
     tamanhos: ["P", "M", "G", "GG"],
-    categorias: ["Moletons", "Acessórios", "Caneca", "Camiseta"],
+    categorias: ["Moletons", "Camisetas", "Shorts", "Promoções", "Novidades", "Exclusivos"],
     headers: [
       {
         text: "Nome do Produto",
@@ -262,6 +264,7 @@ export default {
       this.produtos = await this.getProdutos();
     },
 
+  //ao se editar o item, editedIndex já não é masi igual a -1;
     editItem(item) {
       this.editedIndex = this.produtos.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -276,6 +279,7 @@ export default {
 
     deleteItemConfirm() {
       this.produtos.splice(this.editedIndex, 1);
+      this.removeProduto(this.editedItem._id);
       this.closeDelete();
     },
 
@@ -292,7 +296,9 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
+        
       });
+
     },
       
     async getProdutos(){
@@ -304,17 +310,24 @@ export default {
 
     //a função "save" á análoga ao "add todo" do tutorial:
     async save() {
+
+      // se editedIndex é diferente de -1, então o item existe e foi editado.
+      // deve-se fazer PUT no backend:
+
       if (this.editedIndex > -1) {
+
         Object.assign(this.produtos[this.editedIndex], this.editedItem);
+
         
-        await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+        await axios.put(`http://localhost:3000/api/produtos/${this.editedItem._id}`, {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
         this.produtos = await this.getProdutos();
 
-      } else {
+      } 
+      //caso editedIndex seja igual a -1, o produto acabou de ser criado.
+      // deve se dar POST no backend:
+      else {
         this.produtos.push(this.editedItem);
 
-        // parece que se desmembrar os parâmetros em várias linhas, não funciona direito!
-        // deixar todos os parâmetros em uma linha, feio mesmo
         await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
 
         this.produtos = await this.getProdutos();

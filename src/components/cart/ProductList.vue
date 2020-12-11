@@ -22,7 +22,12 @@ export default {
   methods: {
     async decrementProduct(product) {
       product.quantity -= 1;
-      await axios.put(`http://localhost:3000/api/carrinho/${product._id}`, { ref: product.ref, quantity: product.quantity });
+      
+      if (product.quantity === 0)
+        await axios.delete(`http://localhost:3000/api/carrinho/${product._id}`);
+      else
+        await axios.put(`http://localhost:3000/api/carrinho/${product._id}`, { ref: product.ref, quantity: product.quantity });
+    
     },
     async incrementProduct(product) {
       product.quantity += 1;

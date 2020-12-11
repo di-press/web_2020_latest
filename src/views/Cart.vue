@@ -78,6 +78,10 @@ async function getItens() {
     }
     
     return products;
+
+    // async adicionarProduto(product) {
+    //   await axios.put(`http://localhost:3000/api/carrinho/`, { ref: product._id, quantity: 1 });
+    // },
   }
 </script>
 

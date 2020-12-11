@@ -279,6 +279,7 @@ export default {
 
     deleteItemConfirm() {
       this.produtos.splice(this.editedIndex, 1);
+      this.removeProduto(this.editedItem._id);
       this.closeDelete();
     },
 
@@ -292,12 +293,12 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false;
-      this.removeProduto(this.editedItem._id);
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
         
       });
+
     },
       
     async getProdutos(){

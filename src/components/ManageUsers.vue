@@ -62,10 +62,46 @@
                         label="Telefone"
                       ></v-text-field>
                     </v-col>
+                     <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.rua_usuario"
+                        label="Rua. Ex: Av. São Carlos"
+                      ></v-text-field>
+                    </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.endereco"
-                        label="Ex: Av. São Carlos, 500, Centro - São Carlos"
+                        v-model="editedItem.bairro_usuario"
+                        label="Bairro. Ex: Centro"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.num_usuario"
+                        label="Número. Ex: 400"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.complemento_usuario"
+                        label="Complemento. Ex: apto 22"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.cidade_usuario"
+                        label="Cidade. Ex: São Carlos"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.estado_usuario"
+                        label="Estado. Ex: SP"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.pais_usuario"
+                        label="País. Ex: Brasil"
                       ></v-text-field>
                     </v-col>
                     
@@ -149,14 +185,19 @@ export default {
       id_usuario: 1,
       email: "",
       telefone: 1697227864,
-      endereco: "",
+      rua_usuario: "",
+      bairro_usuario: "",
+      cidade_usuario: "",
+      complemento_usuario: "",
+      num_usuario: 0,
+      estado_usuario: "",
+      pais_usuario: "",
     },
     defaultItem: {
       nome: "",
       id_usuario: 1,
       email: "",
       telefone: 1697227864,
-      endereco: "",
     },
   }),
 

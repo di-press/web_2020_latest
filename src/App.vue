@@ -15,6 +15,7 @@
         </a>
       </v-toolbar-title>
 
+       <!-- Pesquisa global e funciona apenas quando o enter é pressionado -->
       <v-text-field
         flat
         filled
@@ -23,7 +24,11 @@
         prepend-inner-icon="mdi-magnify"
         placeholder="Buscar"
         class="hidden-sm-and-down pl-10 ml-4"
-      />
+        v-model="palavraBuscada"
+        @keydown.enter="buscar"
+      /> 
+
+
       <v-spacer />
       <!--
       <v-btn color="orange darken-3" @click="aumentarFontes"> +BUTTON TO RULE THEM ALL </v-btn>
@@ -233,6 +238,11 @@ export default {
         document.getElementById("btn1").href = "/usuarios";
         document.getElementById("btn2").href = "/estoque";
       }
+    },
+
+    buscar(){
+      this.$router.push('/resultado');
+      this.$store.state.palavraBuscada = this.palavraBuscada;      
     },
   },
   async beforeCreate() {

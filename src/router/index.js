@@ -9,6 +9,8 @@ import Registrar from "@/components/Register";
 import Finalizar from "@/components/Checkout";
 import Estoque from "@/components/ManageProducts";
 import Usuarios from "@/components/ManageUsers";
+import ResultadoBusca from "@/components/ResultadoBusca";
+
 
 Vue.use(Router);
 
@@ -58,6 +60,11 @@ export default new Router({
       path: "/usuarios",
       component: Usuarios,
       name: "Usuarios"
+    },
+    {
+      path: "/resultado",
+      component: ResultadoBusca,
+      name: "ResutaldoBusca"
     }
   ],
   mode: "history"

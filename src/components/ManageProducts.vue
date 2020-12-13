@@ -191,6 +191,8 @@
 <script>
 
 import axios from "axios";
+import AuthService from '../services/auth'
+
 
 export default {
   data: () => ({
@@ -320,7 +322,7 @@ export default {
         Object.assign(this.produtos[this.editedIndex], this.editedItem);
 
         
-        await axios.put(`http://localhost:3000/api/produtos/${this.editedItem._id}`, {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+        await axios.put(`http://localhost:3000/api/produtos/${this.editedItem._id}`, {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto}, { headers: AuthService.authHeader() });
         this.produtos = await this.getProdutos();
 
       } 
@@ -329,10 +331,12 @@ export default {
       else {
         this.produtos.push(this.editedItem);
 
-        await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto});
+        await axios.post("http://localhost:3000/api/produtos", {name: this.editedItem.name, id_produto: this.editedItem.id_produto, preco_produto: this.editedItem.preco_produto, unidades_estoque: this.editedItem.unidades_estoque, unidades_vendidas: this.editedItem.unidades_vendidas, cor: this.editedItem.cor, tam_produto: this.editedItem.tam_produto, categoria_produto: this.editedItem.categoria_produto, foto: this.editedItem.foto, descricao_produto: this.editedItem.descricao_produto, descricao_foto: this.editedItem.descricao_foto}, { headers: AuthService.authHeader() });
 
         this.produtos = await this.getProdutos();
       }
+      
+      this.produtos = await this.getProdutos();
       await this.close();
     },
 
@@ -340,14 +344,12 @@ export default {
     // esta função carrega pra página de cadastrar produtos todos os produtos
     // já existentes no banco de dados:
     async beforeCreate(){
-    
-      console.log(this.response);
-      //atribui os produtos do banco à variável "produtos":
+          //atribui os produtos do banco à variável "produtos":
       this.produtos = await this.getProdutos();
     },
 
     async removeProduto(_id){
-      await axios.delete(`http://localhost:3000/api/produtos/${_id}`);
+      await axios.delete(`http://localhost:3000/api/produtos/${_id}`, { headers: AuthService.authHeader() });
       this.produtos = await this.getProdutos();
 
     }

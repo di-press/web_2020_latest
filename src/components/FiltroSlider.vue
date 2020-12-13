@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     // Inicializa o cursor com a primeira opção disponível
-    this.valorNoIntervalo = 0;
+    this.valorNoIntervalo = this.$props.opcoes.length;
   },
   // Quando houver mudanças no cursor, reagimos ao evento e emitimos um sinal contendo a opção selecionada
   watch: {

@@ -4,16 +4,16 @@
       <v-card class="filtro" max-width="300" ref="vuecard">
         <v-row>
           <FiltroCheckbox
-            tipo="Categorias"
-            :opcoes="opcoes.categorias"
-            @change="(novoValor) => (filtros.categoriasSelecionadas = novoValor)"
+            tipo="Cores"
+            :opcoes="opcoes.cor"
+            @change="(novoValor) => (filtros.coresSelecionadas = novoValor)"
           />
         </v-row>
         <v-row>
           <FiltroCheckbox
-            tipo="Cores"
-            :opcoes="opcoes.cor"
-            @change="(novoValor) => (filtros.coresSelecionadas = novoValor)"
+            tipo="Tamanho"
+            :opcoes="opcoes.tamanhos"
+            @change="(novoValor) => (filtros.tamanhosEscolhidos = novoValor)"
           />
         </v-row>
         <v-row>
@@ -23,39 +23,34 @@
             @change="(novoValor) => (filtros.faixaDePreco = novoValor)"
           />
         </v-row>
-        <v-row>
-          <FiltroSlider
-            tipo="Tamanho"
-            :opcoes="opcoes.tamanhos"
-            @change="(novoValor) => (filtros.tamanhoEscolhido = novoValor)"
-          />
-        </v-row>
-        <!-- Teste: verificar que os filtros desejados foram realmente selecionados -->
-        <!--div>
-          Filtros escolhidos:
-          {{ filtros }}
-        </div-->
       </v-card>
     </div>
-    <div class="produtos">
-      <v-container class="grey lighten-5 evelation-2">
-        <!--<v-row align="center">
-          <v-btn color="orange darken-3" @click="aumentarFontes"> {{aumentar}} </v-btn>
-          <v-btn color="orange darken-3" @click="diminuirFontes"> {{diminuir}} </v-btn>
-        </v-row>-->
-        <v-row no-gutters>
-          <template v-for="(detalhesDoProduto, indice) in produtos">
-            <v-col :key="indice">
-              <Thumbnail
-                :nome="detalhesDoProduto.nome"
-                :preco="detalhesDoProduto.preco"
-                :imagem="detalhesDoProduto.imagem"
-                :link="detalhesDoProduto.link"
-              />
-            </v-col>
-          </template>
-        </v-row>
-      </v-container>
+    <div class="mb-4">
+      <div v-if="produtos.length !== 0">
+        <v-container class="grey lighten-5 evelation-2">
+          <v-row no-gutters>
+            <template v-for="(detalhesDoProduto, indice) in produtos">
+              <v-col :key="indice">
+                <Thumbnail
+                  :produto="detalhesDoProduto"
+                  class="ml-6 mr-6"
+                />
+              </v-col>
+            </template>
+          </v-row>
+        </v-container>
+      </div>
+      <div v-else class="d-flex justify-center">
+        <v-alert
+        dense
+        border="left"
+        type="warning"
+        class="font-bold-black black--text"
+        v-bind:style="styles"
+        >
+          Produto não encontrado :( 
+        </v-alert>
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +67,27 @@ export default {
     FiltroSlider,
     Thumbnail,
   },
+  created() {
+    this.initialize()
+  },
   methods: {
+    initialize() {
+      this.produtos = this.$store.state.produtoPesquisado;
+    },
+    aumentarFonte() {
+      this.numericFontSize += 0.1
+      if (this.numericFontSize >= 1.6) {
+        this.numericFontSize = 1.6;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    },
+    diminuirFonte() {
+      this.numericFontSize -= 0.1
+      if (this.numericFontSize <= 1.0) {
+        this.numericFontSize = 1.0;
+      }
+      this.styles.fontSize = this.numericFontSize + 'em';
+    },
     aumentarFontes() {
       let size = this.$children.length;
       for (var i = 0; i < size; ++i) {
@@ -92,102 +107,65 @@ export default {
   },
   data() {
     return {
+      storeFont: 1.4,
+      styles: {
+        fontSize: '1.2em'
+      },
+      numericFontSize: 1.2,
       // filtros armazena todos os filtros selecionados nos componentes filhos
       filtros: {
-        categoriasSelecionadas: [],
         coresSelecionadas: [],
+        tamanhosEscolhidos: [],
         faixaDePreco: null,
-        tamanhoEscolhido: null,
       },
       /*
       opções armazena as opções a serem passadas para os componentes filhos
       utilizarem para renderizar opções de seleção
       */
       opcoes: {
-        categorias: [
-          { nome: "Moletons", selecionado: false },
-          { nome: "Camisetas", selecionado: false },
-          { nome: "Canecas", selecionado: false },
-          { nome: "Acessórios", selecionado: false },
-        ],
         cor: [
-          { nome: "Laranja", selecionado: false },
           { nome: "Azul", selecionado: false },
           { nome: "Amarelo", selecionado: false },
+          { nome: "Preto", selecionado: false },
         ],
-        precos: ["Até R$50.0", "Até R$100.0", "Até R$200.0", "Até R$500.0"],
-        tamanhos: ["Pequeno", "Médio", "Grande", "Extra Grande"],
+        tamanhos: [
+          { nome: "P", selecionado: false },
+          { nome: "M", selecionado: false },
+          { nome: "G", selecionado: false }, 
+          { nome: "GG", selecionado: false },
+        ],
+        precos: ["Até R$15.0", "Até R$50.0", "Até R$100.0", "Até R$200.0"],
       },
-      // end filtro
       aumentar: "+A",
       diminuir: "-A",
-      produtos: [
-        {
-          nome: "Shorts feminino CAASO",
-          preco: 70,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2019/10/miniatura-atletica-SAMBA-FRENTE-AM-min.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Moletom com bordado personalizável",
-          preco: 180,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/mockup-moletom-atleticacaaso2020-frente.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Chapéu CAASO",
-          preco: 30,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/WhatsApp-Image-2020-08-31-at-14.24.28-Jo%C3%A3o-D.jpeg",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Óculos de sol amarelo",
-          preco: 18,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/04/oculos.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Meias cano alto bordadas",
-          preco: 50,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/mockup-meia-atleticacaaso2020.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Kit bixo ICMC 2020",
-          preco: 60,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/03/miniatura-sacim-KIT.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Moletom com bordado personalizável",
-          preco: 180,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Moletom com bordado personalizável",
-          preco: 180,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-        {
-          nome: "Moletom com bordado personalizável",
-          preco: 180,
-          imagem:
-            "https://www.beuni.com.br/usp/saocarlos/wp-content/uploads/2020/08/miniatura-moletom-sacim-PB-frente.png",
-          link: "https://www.beuni.com.br/usp/saocarlos/",
-        },
-      ],
+      produtos: [],
     };
   },
+  watch: {
+    '$store.state.produtoPesquisado': function() {
+      this.produtos = this.$store.state.produtoPesquisado;
+    },
+    'filtros': {
+      handler: function() {
+        this.$store.dispatch('registraBusca', this.$store.state.ultimaBusca);
+        this.$store.dispatch('filtraPorCor', this.filtros.coresSelecionadas);
+        this.$store.dispatch('filtraPorTamanho', this.filtros.tamanhosEscolhidos);
+        var precoNumerico = parseFloat(this.filtros.faixaDePreco.substring(6));
+        this.$store.dispatch('filtraPorPreco', precoNumerico);
+      },
+      deep: true
+    },
+    '$store.state.fontSize': function() {
+      if (this.$store.state.fontSize > this.storeFont) {
+        this.aumentarFonte()
+      }
+      else { 
+        this.diminuirFonte()
+      }
+
+      this.storeFont = this.$store.state.fontSize;
+    },
+  }
 };
 </script>
 
@@ -216,7 +194,6 @@ a {
   font-family: sans-serif;
   display: grid;
   grid-gap: 15px;
-  /*grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));*/
   grid-template-columns: auto auto auto;
   text-align: center;
 }

@@ -15,6 +15,17 @@
         </a>
       </v-toolbar-title>
 
+      <v-btn
+        v-if="!logado"
+        id="btn3"
+        href="/entrar"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Entrar</span>
+      <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+
       <v-text-field
         flat
         filled
@@ -23,12 +34,10 @@
         prepend-inner-icon="mdi-magnify"
         placeholder="Buscar"
         class="hidden-sm-and-down pl-10 ml-4"
+        v-model="busca"
+        @keydown.enter="buscarProdutos"
       />
       <v-spacer />
-      <!--
-      <v-btn color="orange darken-3" @click="aumentarFontes"> +BUTTON TO RULE THEM ALL </v-btn>
-      <v-btn color="orange darken-3" @click="diminuirFontes"> -BUTTON TO RULE THEM ALL </v-btn>
-      -->
       <v-btn color="primary" class="black--text" @click="aumentarFontes">
         +A
       </v-btn>
@@ -37,78 +46,71 @@
       </v-btn>
       <v-btn
         id="btn1"
-        v-on="on"
         href="/carrinho"
         class="my-3 black--text"
         color="primary"
-        @click="changeButtons"
       >
-        <span v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >Carrinho</span
-        >
-        <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
-          >Usuários
-        </span>
+        <span>Carrinho</span>
         <v-badge v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'" :content="nitens" :value="nitens" color="#4dd0e1">
           <!--v-badge :content="nitens" :value="nitens" content="numberItensCart()" value="1" color="#4dd0e1"-->
-          <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-            >mdi-cart</v-icon
-          >
+          <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
       <v-btn
+        v-if="!logado"
         id="btn2"
         href="/registrar"
         class="my-3 black--text"
         color="primary"
-        @click="changeButtons"
       >
-        <span v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >Registrar</span
-        >
-        <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
-          >Estoque
-        </span>
-        <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >mdi-account-circle</v-icon
-        >
+      <span>Registrar</span>
+      <v-icon>mdi-account-circle</v-icon>
       </v-btn>
+
+      <v-btn
+        v-if="administador"
+        id="btn22"
+        href="/usuarios"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Usuarios</span>
+      </v-btn>
+
+      <v-btn
+        v-if="administador"
+        id="btn33"
+        href="/estoque"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Estoque</span>
+      </v-btn>
+
+      <v-btn
+        v-if="logado"
+        id="btn4"
+        class="my-3 black--text"
+        color="primary"
+        @click="sair"
+      >
+      <span>Sair</span>
+      <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+
+
     </v-app-bar>
     <v-content>
       <v-bottom-navigation fixed :value="activeBtn" horizontal class="primary" large>
         <a
           v-for="(categoria, index) in categorias"
           :key="index"
-          href="/produtos"
           class="v-btn"
           v-bind:style="navigationStyles"
+          @click="buscarCategorias(index)"
         >
           <span>{{ categoria.title }}</span>
         </a>
-
-        <!--  BOTOÕES DE ACESSIBILIDADE
-        <v-row align="center">
-          <v-btn color="orange darken-3" @click="aumentarFontes"> +BUTTON TO RULE THEM ALL </v-btn>
-          <v-btn color="orange darken-3" @click="diminuirFontes"> -BUTTON TO RULE THEM ALL </v-btn>
-        </v-row>
-
-        -->
-        <!-- <v-menu open-on-hover offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on">
-              <span>Universidades</span>
-            </v-btn>
-          </template>
-          <v-card class="mx-auto" max-width="344" outlined>
-            <v-list-item
-              v-for="(universidade, index) in universidades"
-              :key="index"
-              href="/produtos"
-            >
-              <v-list-item-title>{{ universidade.title }}</v-list-item-title>
-            </v-list-item>
-          </v-card>
-        </v-menu> -->
       </v-bottom-navigation>
     </v-content>
 
@@ -153,11 +155,21 @@
 
 <script>
 import axios from 'axios';
+import AuthService from './services/auth'
 
 export default {
   name: "App",
+  computed: {
+    logado() {
+      return AuthService.estaLogado()
+    },
+    administador() {
+      return AuthService.isAdmin()
+    }
+  },
   data() {
     return {
+      busca: "",
       navigationStyles: {
         fontSize: "1.0em",
       },
@@ -167,8 +179,6 @@ export default {
         { title: "Camisetas" },
         { title: "Shorts" },
       ],
-
-      universidades: [{ title: "CAASO" }, { title: "Federal" }],
       activeBtn: 1,
       nitens: null,
     };
@@ -178,11 +188,22 @@ export default {
   },
   methods: {
     async initialize() {
-      this.$store.state.novidades = await this.findNovidades();
-      this.$store.state.promocoes = await this.findPromocoes();
-      this.$store.state.exclusivos = await this.findExclusivos();
+      this.$store.dispatch('salvaProdutos', await this.getProdutos());
+      this.$store.dispatch('salvaNovidades', await this.findNovidades());
+      this.$store.dispatch('salvaPromocoes', await this.findPromocoes());
+      this.$store.dispatch('salvaExclusivos', await this.findExclusivos());
     },
+    
+    async getProdutos(){
+      //método get: pega todos os produtos do Mongo:
+      const response = await axios.get("http://localhost:3000/api/produtos");
 
+      return response.data;
+    },
+    sair() {
+      AuthService.logout()
+      window.location.href = "/";
+    },
     async findNovidades() {
       //método get: pega todos os produtos com a categoria Novidades do Mongo(3 produtos):
       const response = await axios.get("http://localhost:3000/api/produtos/findNovidades");
@@ -202,6 +223,47 @@ export default {
       const response = await axios.get("http://localhost:3000/api/produtos/findExclusivos");
 
       return response.data;
+    },
+
+    stringValida(string) {
+      return (string !== null && string.length !== 0 && string.trim());
+    },
+
+    buscarProdutos() {
+      if (this.stringValida(this.busca)) {
+        console.info("BUSCA: " + this.busca.trim());
+        console.info("ROUTER ATUAL:" + this.$route.path.toString());
+
+        if (this.$route.path !== '/produtos') {
+          this.$router.push('/produtos');
+          
+          // Após ir para a próxima página, retrocedemos a nova página para o topo
+          document.body.scrollTop = 0; //  Para o navegador Safari
+          document.documentElement.scrollTop = 0; // Para o navegador Chrome, Firefox, IE e Opera
+        }
+        else {
+          this.$router.go(0);
+        }
+
+        this.$store.dispatch('registraBusca', this.busca.trim());
+      }
+      else {
+        console.info("VAZIA");
+      }
+    },
+
+    buscarCategorias(indice) {
+      if (indice === 0) {
+        this.busca = "moletom";
+      }
+      else if (indice === 1) {
+        this.busca = "camiseta";
+      }
+      else if (indice === 2) {
+        this.busca = "shorts";
+      }
+
+      this.buscarProdutos();
     },
 
     aumentarFontes() {
@@ -226,12 +288,6 @@ export default {
       this.navigationStyles.fontSize = this.numericFontSize + "em";
 
       this.$store.dispatch("reduceFont");
-    },
-    changeButtons() {
-      if (this.$route.name === "Usuarios" || this.$route.name === "Estoque") {
-        document.getElementById("btn1").href = "/usuarios";
-        document.getElementById("btn2").href = "/estoque";
-      }
     },
   },
   async beforeCreate() {

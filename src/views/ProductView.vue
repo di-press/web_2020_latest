@@ -114,8 +114,9 @@ export default {
     initialize() {
       //console.info("PAGINA DOS PRODUTOS " + this.$store.state.selectedProduct.name);
       this.product = this.$store.state.selectedProduct;
-      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+      this.preco = this.product.preco_produto; //parseFloat(this.product.preco_produto.replace(",", "."));
       this.promocoes = this.$store.state.promocoes;
+      //console.info("INITIALIZE PRODUCT VIEW: " + this.promocoes[0].name);
     },
     aumentarFonte() {
       this.numericFontSize += 0.1
@@ -140,6 +141,8 @@ export default {
 
         tmp.unidades_estoque -= this.quantity;
 
+        let user = JSON.parse(localStorage.getItem('user'));
+
         await axios.put(`http://localhost:3000/api/produtos/${ this.product._id }`, { 
           name: tmp.name, 
           id_produto: tmp.id_produto, 
@@ -152,7 +155,11 @@ export default {
           foto: tmp.foto, 
           descricao_produto: tmp.descricao_produto, 
           descricao_foto: tmp.descricao_foto
-        });
+        }, {
+  headers: {
+    'x-access-token': `${user.token}` 
+  }
+} );
       } else {
         alert(`Produto não está disponível em quantidade indicada`);
       }
@@ -174,7 +181,7 @@ export default {
     },
     '$store.state.selectedProduct': function() {
       this.product = this.$store.state.selectedProduct;
-      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+      this.preco = this.product.preco_produto; //parseFloat(this.product.preco_produto.replace(",", "."));
     },
     '$store.state.promocoes': function() {
       this.promocoes = this.$store.state.promocoes;

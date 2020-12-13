@@ -31,7 +31,7 @@
             required="true"
           />
 
-          <!-- <label for="pass-repeat">Repita a senha:</label>
+          <label for="pass-repeat">Repita a senha:</label>
           <input
             v-model="form.pass_rep"
             type="password"

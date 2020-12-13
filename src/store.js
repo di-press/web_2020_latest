@@ -12,6 +12,7 @@ export default new Vuex.Store({
         novidades: [],
         promocoes: [],
         exclusivos: [],
+        palavraBuscada: ''
     },
     mutations: {
         setFont(state, size) {
@@ -34,6 +35,10 @@ export default new Vuex.Store({
         updateProduct({commit}, product) {
             console.info("ACTION PRODUCT");
             commit('setProduct', product);
+        },
+
+        pesquisar({state, commit}) {
+            commit('updateBusca', state.busca);            
         }
     }
 });

@@ -3,9 +3,6 @@
     <div class="hello">
       <form
         id="register"
-        @submit="checkForm"
-        action="https://vuejs.org/"
-        method="post"
       >
         <div class="container">
           <div class="title">
@@ -32,7 +29,6 @@
             name="pass"
             placeholder="********"
             required="true"
-            @change="validatePassword"
           />
 
           <label for="pass-repeat">Repita a senha:</label>
@@ -43,19 +39,18 @@
             name="confirm_pass"
             placeholder="********"
             required="true"
-            @keyup="validatePassword"
           />
 
           <label for="id">CPF:</label>
           <input
-            v-model="form.id"
+            v-model="form.cpf"
             type="text"
             id="id"
             name="id"
             placeholder="Ex: 123.456.789-00"
-            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
             title="Número não confere com o padrão."
             required="true"
+            v-mask="'###.###.###-##'"
           />
 
           <label for="name">Nome e sobrenome:</label>
@@ -65,7 +60,6 @@
             id="name"
             name="name"
             placeholder="Digite seu nome"
-            pattern="[a-zA-Z]+$"
             required="true"
           />
 
@@ -77,6 +71,7 @@
             name="birth"
             placeholder="Ex: 01/01/1999"
             required="true"
+            v-mask="'##/##/####'"
           />
 
           <label for="adress">Endereço:</label>
@@ -86,7 +81,6 @@
             id="address"
             name="address"
             placeholder="Ex: Av São carlos, 500, Centro - São Carlos"
-            pattern="[a-zA-Z]+$"
             required="true"
           />
           <label for="phone">Telefone:</label>
@@ -96,14 +90,13 @@
             id="phone"
             name="phone"
             placeholder="Ex: (99) 12345-6789"
-            pattern="\([0-9]{2}\)[\s][0-9]{5}-[0-9]{4}"
             title="Número não confere com o padrão."
-            required="false"
+            required="true"
+            v-mask="['(##)####-####','(##)#####-####']"
           />
 
           <label>
             <input
-              v-model="form.subscribe"
               type="checkbox"
               checked="checked"
               name="subscribe"
@@ -113,13 +106,13 @@
           </label>
           <br/>
           <div class="center">
-            <v-btn type="submit" color="primary" class="black--text" large>
+            <v-btn color="primary" class="black--text" large @click="submitForm"> 
               finalizar cadastro
             </v-btn>
           </div>
         </div>
       </form>
-
+      <p> {{ form }} </p>
       <p class="signin">
         <span>Já tem um cadastro? </span>
         <a href="/entrar">Entrar</a>
@@ -129,6 +122,8 @@
 </template>
 
 <script>
+import AuthService from '../services/auth'
+
 export default {
   name: "RegistrationForm",
   data: function () {
@@ -142,27 +137,25 @@ export default {
         mail: null,
         pass: null,
         pass_rep: null,
-        id: null,
+        cpf: null,
         name: null,
         birth: null,
         address: null,
-        gender: null,
         phone: null,
-        subscribe: false,
       },
     };
   },
   methods: {
-    /*
-    validatePassword: function () {
-      if (this.pass !== this.pass_rep) {
-        document
-          .getElementById("confirm_pass")
-          .setCustomValidity("Senhas diferentes!");
-      } else {
-        document.getElementById("confirm_pass").setCustomValidity("");
+    async submitForm() {
+      console.log("Posting register")
+      const response = await AuthService.register(this.form)
+      if (response.data.token) {
+        console.log('retornou um usuario')
+        window.location.href = "/";
       }
-    },*/
+      console.log(response)
+
+    },
     aumentarFonte() {
       this.numericFontSize += 0.1
       if (this.numericFontSize >= 1.4) {

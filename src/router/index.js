@@ -10,6 +10,9 @@ import Finalizar from "@/components/Checkout";
 import Estoque from "@/components/ManageProducts";
 import Usuarios from "@/components/ManageUsers";
 
+import AuthService from '../services/auth'
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -52,12 +55,30 @@ export default new Router({
     {
       path: "/estoque",
       component: Estoque,
-      name: "Estoque"
+      name: "Estoque", 
+      beforeEnter: (to, from, next) => {
+        if (AuthService.isAdmin()) {
+          next()
+        } else {
+          next({
+            name:'Home'
+          })
+        }
+      }
     },
     {
       path: "/usuarios",
       component: Usuarios,
-      name: "Usuarios"
+      name: "Usuarios",
+      beforeEnter: (to, from, next) => {
+        if (AuthService.isAdmin()) {
+          next()
+        } else {
+          next({
+            name:'Home'
+          })
+        }
+      }
     }
   ],
   mode: "history"

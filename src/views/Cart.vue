@@ -30,55 +30,47 @@ export default {
   },
   data: function () {
     return {
-      products: [/*
-        {
-          name: "Moletom",
-          quantity: 1,
-          price: 180,
-          //image: require('../../assets/moletom.png'),
-        },
-        {
-          name: "Agenda 2021",
-          quantity: 1,
-          price: 80,
-          //image: require('../../assets/moletom.png'),
-        },
-      */],
+      products: [],
     };
   },
   computed: {
+    // Função para calcular preço total da compra
     totalPrice() {
       return this.products.reduce((sum, product) => {
         return sum + product.quantity * product.price;
       }, 0);
     },
+    // Função para calcular quantidade total de produtos no carrinho
     totalProducts() {
       return this.products.reduce((sum, product) => {
         return sum + product.quantity;
       }, 0);
     },
   },
+  // Importa dados da requisição para o front
   async beforeCreate() {
     this.products = await getItens();
   }
 };
 
+// Função que faz busca de itens que estão no carrinho
+// Depois pega informações extras de cada produto cadastrado
+// no banco de dados de estoque da loja.
 async function getItens() {
-    const response = await axios.get("http://localhost:3000/api/carrinho");
+  const response = await axios.get("http://localhost:3000/api/carrinho");
 
-    const products = response.data;
+  const products = response.data;
 
-    for (let product of products) {
-      console.log(product);  
-      const tmp = await axios.get(`http://localhost:3000/api/produtos/${ product.ref }`);
-      console.log(tmp.data);
-      product.name = tmp.data.name;
-      product.price = tmp.data.preco_produto;
-      product.image_url = tmp.data.foto;
-    }
-    
-    return products;
+  for (let product of products) { 
+    const tmp = await axios.get(`http://localhost:3000/api/produtos/${ product.ref }`);
+    console.log(tmp.data);
+    product.name = tmp.data.name;
+    product.price = tmp.data.preco_produto;
+    product.image_url = tmp.data.foto;
   }
+  
+  return products;
+}
 </script>
 
 <style scoped>

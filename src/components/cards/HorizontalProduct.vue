@@ -3,7 +3,7 @@
     <div class="d-flex">
       <div>
         <v-img
-          :src="require('../../assets/moletom.png')"
+          :src="product.image_url"
           width="150px"
           height="150px"
         />

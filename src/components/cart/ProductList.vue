@@ -20,8 +20,16 @@ export default {
   },
   props: ['products'],
   methods: {
+    // Função para decrementar produto:
+    // É atualizado a quantidade em estoque do produto no banco de dados do estoque
+    // e da quantidade do produto no carrinho
     async decrementProduct(product) {
       product.quantity -= 1;
+
+      if (product.quantity === 0)
+        await axios.delete(`http://localhost:3000/api/carrinho/${product._id}`);
+      else
+        await axios.put(`http://localhost:3000/api/carrinho/${product._id}`, { ref: product.ref, quantity: product.quantity });
 
       const response = await axios.get(`http://localhost:3000/api/produtos/${product.ref}`);
       const tmp = response.data;
@@ -40,14 +48,12 @@ export default {
         foto: tmp.foto, 
         descricao_produto: tmp.descricao_produto, 
         descricao_foto: tmp.descricao_foto
-      });
-      
-      if (product.quantity === 0)
-        await axios.delete(`http://localhost:3000/api/carrinho/${product._id}`);
-      else
-        await axios.put(`http://localhost:3000/api/carrinho/${product._id}`, { ref: product.ref, quantity: product.quantity });
-    
+      });    
     },
+    // Função para incrementar produto:
+    // É verificado se ainda existem unidades em estoque
+    // Caso tenha, é atualizado a quantidade em estoque do produto no banco de dados do estoque
+    // e da quantidade do produto no carrinho
     async incrementProduct(product) {
       const response = await axios.get(`http://localhost:3000/api/produtos/${product.ref}`);
       const tmp = response.data;
@@ -70,7 +76,7 @@ export default {
           foto: tmp.foto, 
           descricao_produto: tmp.descricao_produto, 
           descricao_foto: tmp.descricao_foto
-        });
+        },);
       } else {
         alert(`Produto ${product.name} fora de estoque`);
       }

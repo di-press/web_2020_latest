@@ -350,7 +350,7 @@ export default {
     },
 
     async removeProduto(_id){
-      await axios.delete(`http://localhost:3000/api/produtos/${_id}`);
+      await axios.delete(`http://localhost:3000/api/produtos/${_id}`, { headers: AuthService.authHeader() });
       this.produtos = await this.getProdutos();
 
     }

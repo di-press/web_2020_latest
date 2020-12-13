@@ -103,39 +103,41 @@
                 </v-container>
               </v-card-text>
 
-              <v-card-acoes>
-                <v-spacer></v-spacer>
-                <v-btn color="orange darken-4" text @click="close">
+              <v-card-acoes align="center" justify="center">
+                <v-flex align-self-center>
+                <v-btn color="primary" text @click="close">
                   Cancelar
                 </v-btn>
-                <v-btn color="orange darken-4" text @click="save">
+                <v-btn color="primary" text @click="save">
                   Salvar
                 </v-btn>
+                </v-flex>
               </v-card-acoes>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
+          <v-dialog v-model="dialogDelete" max-width="600px">
+            <v-card class="px-1 pb-2">
               <v-card-title class="headline"
                 >Você tem certeza que deseja deletar este usuário?</v-card-title
               >
-              <v-card-acoes>
-                <v-spacer></v-spacer>
+              <v-card-acoes align="center" justify="center">
+                <!-- <v-spacer></v-spacer> -->
+                <v-flex align-self-center>
                 <v-btn
-                  class="cadastro_usuarios"
-                  color="blue darken-1"
-                  text
+                  class="cadastro_usuarios mx-auto"
+                  color="primary"
                   @click="closeDelete"
                   >Cancelar</v-btn
                 >
                 <v-btn
-                  class="cadastro_usuarios"
-                  color="blue darken-1"
+                  class="cadastro_usuarios mx-auto"
+                  color="primary"
                   text
                   @click="deleteItemConfirm"
-                  >OK</v-btn
+                  >  OK  </v-btn
                 >
-                <v-spacer></v-spacer>
+                </v-flex>
+                <!-- <v-spacer></v-spacer> -->
               </v-card-acoes>
             </v-card>
           </v-dialog>

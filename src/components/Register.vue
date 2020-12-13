@@ -27,11 +27,11 @@
             type="password"
             id="pass"
             name="pass"
-            placeholder="********"
+            placeholder="Digite sua senha"
             required="true"
           />
 
-          <label for="pass-repeat">Repita a senha:</label>
+          <!-- <label for="pass-repeat">Repita a senha:</label>
           <input
             v-model="form.pass_rep"
             type="password"

@@ -114,8 +114,9 @@ export default {
     initialize() {
       //console.info("PAGINA DOS PRODUTOS " + this.$store.state.selectedProduct.name);
       this.product = this.$store.state.selectedProduct;
-      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+      this.preco = this.product.preco_produto; //parseFloat(this.product.preco_produto.replace(",", "."));
       this.promocoes = this.$store.state.promocoes;
+      //console.info("INITIALIZE PRODUCT VIEW: " + this.promocoes[0].name);
     },
     aumentarFonte() {
       this.numericFontSize += 0.1
@@ -174,7 +175,7 @@ export default {
     },
     '$store.state.selectedProduct': function() {
       this.product = this.$store.state.selectedProduct;
-      this.preco = parseFloat(this.product.preco_produto.replace(",", "."));
+      this.preco = this.product.preco_produto; //parseFloat(this.product.preco_produto.replace(",", "."));
     },
     '$store.state.promocoes': function() {
       this.promocoes = this.$store.state.promocoes;

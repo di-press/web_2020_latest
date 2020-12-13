@@ -26,7 +26,7 @@
             type="password"
             id="pass"
             name="pass"
-            placeholder=""
+            placeholder="Digite sua senha"
             required="true"
             @change="validatePassword($event)"
           />

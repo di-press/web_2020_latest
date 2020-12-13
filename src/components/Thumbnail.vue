@@ -1,12 +1,17 @@
 <template>
   <div class="thumbnail" v-bind:style="titleStyles">
     <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-      <v-img contain :src="imagem"></v-img>
-      <v-card-title color="black" class="titulo">{{ nome }}</v-card-title>
+      <v-img contain :src="produto.foto"></v-img>
+      <v-card-title color="black" class="titulo">{{ produto.name }}</v-card-title>
 
       <v-card-text>
-        <div class="secao-preco" v-bind:style="detailsStyles">R$ {{ preco }}</div>
-        <v-btn href="/produto" v-bind:styles="detailsStyles" depressed color="primary" class="black--text"> Mais Informações </v-btn>
+        <div class="secao-preco" v-bind:style="detailsStyles">R$ {{ produto.preco_produto }}</div>
+        <v-btn 
+        depressed color="primary"
+        class="black--text"
+        @click="atualizarProduto"> 
+        Mais Informações
+        </v-btn>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -17,7 +22,7 @@
 <script>
 export default {
   name: "Thumbnail",
-  props: ["nome", "preco", "imagem", "link"],
+  props: ["produto"],
   data() {
     return {
       storeFont: 1.4,
@@ -62,7 +67,15 @@ export default {
 
       this.detailsStyles.fontSize = this.detailsFontSize + 'em';
       this.titleStyles.fontSize = this.titleFontSize + 'em';
-    }
+    },
+    atualizarProduto() {
+      this.$store.dispatch('updateProduct', this.$props.produto);
+      this.$router.push("/produto");
+      // Após ir para a próxima página, retrocedemos a nova página para o topo
+      document.body.scrollTop = 0; //  Para o navegador Safari
+      document.documentElement.scrollTop = 0; // Para o navegador Chrome, Firefox, IE e Opera
+      //console.info("PROMOCOES" + this.$store.state.promocoes[0].name)
+    },
   },
   watch: {
     '$store.state.fontSize': function() {

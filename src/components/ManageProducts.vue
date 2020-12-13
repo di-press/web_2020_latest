@@ -59,6 +59,7 @@
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
+                      R$ 20.00
                       <v-text-field
                         v-model="editedItem.preco_produto"
                         label="Preço (R$)"
@@ -139,35 +140,35 @@
                 </v-container>
               </v-card-text>
 
-              <v-card-acoes>
-                <v-spacer></v-spacer>
+              <v-card-acoes align="center" justify="center">
+                <v-flex align-self-center>
                 <v-btn color="primary" text @click="close"> Cancelar </v-btn>
                 <v-btn color="primary" text @click="save"> Salvar </v-btn>
+                </v-flex>
               </v-card-acoes>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
+          <v-dialog v-model="dialogDelete" max-width="600px">
+            <v-card align="center" justify="center">
               <v-card-title class="headline"
                 >Você tem certeza que deseja deletar este produto?</v-card-title
               >
               <v-card-acoes>
-                <v-spacer></v-spacer>
+                <v-flex align-self-center>
                 <v-btn
                   class="cadastro_de_produtos"
-                  color="blue darken-1"
-                  text
+                  color="primary mb-2"
                   @click="closeDelete"
                   >Cancelar</v-btn
                 >
                 <v-btn
                   class="cadastro_de_produtos"
-                  color="blue darken-1"
+                  color="primary mb-2"
                   text
                   @click="deleteItemConfirm"
                   >OK</v-btn
                 >
-                <v-spacer></v-spacer>
+                </v-flex>
               </v-card-acoes>
             </v-card>
           </v-dialog>

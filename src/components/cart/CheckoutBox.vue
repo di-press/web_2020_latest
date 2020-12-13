@@ -53,6 +53,8 @@ export default {
           descricao_produto: tmp.descricao_produto, 
           descricao_foto: tmp.descricao_foto
         });
+
+        await axios.delete(`http://localhost:3000/api/carrinho/${product._id}`);
       }      
       alert(`Compra concluida com sucesso!`);
     }

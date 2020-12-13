@@ -92,7 +92,11 @@ export default {
           foto: tmp.foto, 
           descricao_produto: tmp.descricao_produto, 
           descricao_foto: tmp.descricao_foto
-        },);
+        },
+        { headers: {
+          'x-access-token': `${user.token}` 
+          }
+        });
       } else {
         alert(`Produto ${product.name} fora de estoque`);
       }

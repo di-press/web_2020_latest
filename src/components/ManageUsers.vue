@@ -257,8 +257,6 @@ export default {
     async getUsuarios(){
       //método get: pega todos os usuários do Mongo:
       const response = await axios.get("http://localhost:3000/api/auth/find", { headers: AuthService.authHeader() });
-      console.log(response.data)
-
       return response.data;
     },
 

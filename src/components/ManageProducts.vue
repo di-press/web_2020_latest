@@ -343,9 +343,7 @@ export default {
     // esta função carrega pra página de cadastrar produtos todos os produtos
     // já existentes no banco de dados:
     async beforeCreate(){
-    
-      console.log(this.response);
-      //atribui os produtos do banco à variável "produtos":
+          //atribui os produtos do banco à variável "produtos":
       this.produtos = await this.getProdutos();
     },
 

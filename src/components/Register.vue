@@ -147,14 +147,10 @@ export default {
   },
   methods: {
     async submitForm() {
-      console.log("Posting register")
       const response = await AuthService.register(this.form)
       if (response.data.token) {
-        console.log('retornou um usuario')
         window.location.href = "/";
       }
-      console.log(response)
-
     },
     aumentarFonte() {
       this.numericFontSize += 0.1

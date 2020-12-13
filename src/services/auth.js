@@ -9,7 +9,6 @@ class AuthService {
       })
       .then(response => {
         if (response.data.token) {
-          response.data.tokenLimit = Date.now() + (response.data.tokenExpires * 1000)
           localStorage.setItem('user', JSON.stringify(response.data));
         }
 
@@ -34,7 +33,6 @@ class AuthService {
          endereco: user.address,
     }).then(response => {
       if (response.data.token) {
-        response.data.tokenLimit = Date.now() + (response.data.tokenExpires * 1000)
         localStorage.setItem('user', JSON.stringify(response.data));
       }
       return response;

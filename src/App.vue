@@ -45,16 +45,17 @@
         -A
       </v-btn>
       <v-btn
-        id="btn1"
-        href="/carrinho"
-        class="my-3 black--text"
-        color="primary"
+      v-if="logado"
+      id="btn1"
+      href="/carrinho"
+      class="my-3 black--text"
+      color="primary"
       >
-        <span>Carrinho</span>
-        <v-badge v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'" :content="nitens" :value="nitens" color="#4dd0e1">
-          <!--v-badge :content="nitens" :value="nitens" content="numberItensCart()" value="1" color="#4dd0e1"-->
-          <v-icon>mdi-cart</v-icon>
-        </v-badge>
+      <span>Carrinho</span>
+      <v-badge v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'" :content="nitens" :value="nitens" color="#4dd0e1">
+        <!--v-badge :content="nitens" :value="nitens" content="numberItensCart()" value="1" color="#4dd0e1"-->
+        <v-icon>mdi-cart</v-icon>
+      </v-badge>
       </v-btn>
       <v-btn
         v-if="!logado"
@@ -165,7 +166,7 @@ export default {
     },
     administador() {
       return AuthService.isAdmin()
-    }
+    },
   },
   data() {
     return {

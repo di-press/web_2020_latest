@@ -60,7 +60,6 @@
                 <!-- BOTAO ADICIONAR CARRINHO -->
                 <div class="center">
                   <v-btn
-                    href="/carrinho"
                     @click="adicionarCarrinho"
                     color="primary"
                     class="mu-2 mb-8 black--text"
@@ -133,6 +132,13 @@ export default {
       this.styles.fontSize = this.numericFontSize + 'em';
     },
     async adicionarCarrinho() {
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      if (!user) {
+        this.$router.push("/registrar");
+        return;
+      }
+
       const response = await axios.get(`http://localhost:3000/api/produtos/${ this.product._id }`);
       const tmp = response.data;
 
@@ -140,8 +146,6 @@ export default {
         await axios.post(`http://localhost:3000/api/carrinho/`, { ref: this.product._id, quantity: this.quantity });
 
         tmp.unidades_estoque -= this.quantity;
-
-        let user = JSON.parse(localStorage.getItem('user'));
 
         await axios.put(`http://localhost:3000/api/produtos/${ this.product._id }`, { 
           name: tmp.name, 
@@ -164,7 +168,7 @@ export default {
         alert(`Produto não está disponível em quantidade indicada`);
       }
       
-      
+      this.$router.push("/carrinho");      
     },
   },
   watch: {

@@ -40,12 +40,14 @@
                         class="cadastro_usuarios"
                         v-model="editedItem.nome"
                         label="Nome"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.id_usuario"
                         label="ID"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
                     <br />
@@ -54,30 +56,35 @@
                         v-model="editedItem.email"
                         label="Email. Ex: marianasilva@gmail.com"
                         class="cabecalho"
+                        :rules="emailRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.telefone"
-                        label="Telefone"
+                        label="Telefone Ex: (99) 12345-6789"
+                        :rules="telefoneRules"
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.rua_usuario"
                         label="Rua. Ex: Av. São Carlos"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.bairro_usuario"
                         label="Bairro. Ex: Centro"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.num_usuario"
                         label="Número. Ex: 400"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -90,18 +97,21 @@
                       <v-text-field
                         v-model="editedItem.cidade_usuario"
                         label="Cidade. Ex: São Carlos"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.estado_usuario"
                         label="Estado. Ex: SP"
+                        :rules="estadoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.pais_usuario"
                         label="País. Ex: Brasil"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     
@@ -199,8 +209,23 @@ export default {
       email: "",
       telefone: 1697227864,
     },
+    emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve ser valido'
+    ],
+    telefoneRules: [
+      v => v.match(/\([0-9]{2}\)[\s][0-9]{5}-[0-9]{4}/) || 'Formato inválido'
+    ],
+    numeroRules: [
+      v => v.match(/^\d$/) || 'Digite apenas um número'
+    ],
+    estadoRules: [
+      v => v.match(/[A-Z]{2}/) || 'Digite apenas a sigla do estado em maiúsculo'
+    ],
+    textoRules: [
+      v => v.match(/[a-zA-Z]+$/) || 'Digite apenas texto'
+    ]
   }),
-
+  
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Cadastrar Usuário" : "Editar Usuário";

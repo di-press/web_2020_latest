@@ -4,8 +4,8 @@
       <div>
         <v-img
           :src="product.image_url"
-          width="150px"
-          height="150px"
+          width="100px"
+          height="100px"
         />
       </div>
 

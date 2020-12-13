@@ -295,6 +295,7 @@ export default {
   }
 };
 
+// Retorna o número de itens no carrinho para atualizar dinâmicamente a notificação do botão 'carrinho'
 async function numberItensCart() {
   const response = await axios.get("http://localhost:3000/api/carrinho");
 

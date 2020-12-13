@@ -199,7 +199,7 @@ export default {
     },
     sair() {
       AuthService.logout()
-      window.location.reload()
+      window.location.href = "/";
     },
     async findNovidades() {
       //método get: pega todos os produtos com a categoria Novidades do Mongo(3 produtos):

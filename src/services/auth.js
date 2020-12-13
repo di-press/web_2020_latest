@@ -2,7 +2,6 @@ import axios from 'axios';
 
 class AuthService {
   login(user) {
-    console.log('Fazendo login no servidor...')
     return axios
       .post('http://localhost:3000/api/auth/signin', {
         email: user.mail,
@@ -10,6 +9,7 @@ class AuthService {
       })
       .then(response => {
         if (response.data.token) {
+          response.data.tokenLimit = Date.now() + (response.data.tokenExpires * 1000)
           localStorage.setItem('user', JSON.stringify(response.data));
         }
 
@@ -34,6 +34,7 @@ class AuthService {
          endereco: user.address,
     }).then(response => {
       if (response.data.token) {
+        response.data.tokenLimit = Date.now() + (response.data.tokenExpires * 1000)
         localStorage.setItem('user', JSON.stringify(response.data));
       }
       return response;
@@ -43,6 +44,10 @@ class AuthService {
   estaLogado() {
     let user = JSON.parse(localStorage.getItem('user'));
     if (user && user.token) {
+      if (user.tokenLimit < Date.now()) {
+        localStorage.removeItem('user');
+        return false
+      }
       return true;
     } else {
       return false;

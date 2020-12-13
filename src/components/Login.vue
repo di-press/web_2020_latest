@@ -47,6 +47,9 @@
 </template>
 
 <script>
+ 
+import AuthService from '../services/auth'
+
 export default {
   name: "RegistrationForm",
   data: function () {
@@ -58,19 +61,11 @@ export default {
     };
   },
   methods: {
-    redirect: function () {
-      if (this.form.mail === "admin@gmail.com" && this.form.pass === "admin") {
-        console.log("ADMIN");
-        window.location.href = "/estoque";
-        return;
-      } else if (this.form.mail === "user@gmail.com" && this.form.pass === "user") {
+    async redirect () {
+      const response = await AuthService.login(this.form)
+      if (response.data.token) {
         window.location.href = "/";
-        console.log("USER");
-        return;
       }
-
-      console.log("ERRO");
-      alert("Usuário não cadastrado ou dados incorretos. Por favor, tente novamente.")
     },
   },
 };

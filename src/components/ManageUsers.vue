@@ -39,20 +39,33 @@
                       <v-text-field
                         class="cadastro_usuarios"
                         v-model="editedItem.nome"
-                        label="Nome"
+                        label="Nome e sobrenome"
+                        placeholder="Digite o nome completo"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.id_usuario"
-                        label="ID"
+                        v-model="editedItem.cpf"
+                        label="CPF"
+                        v-mask="'###.###.###-##'"
+                        placeholder="Ex: 123.456.789-00"
                       ></v-text-field>
                     </v-col>
                     <br />
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.email"
-                        label="Email. Ex: marianasilva@gmail.com"
+                        label="Email"
+                        placeholder="Ex. marianasilva@gmail.com"
+                        class="cabecalho"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.senha"
+                        label="Senha"
+                        type="password"
+                        placeholder="********"
                         class="cabecalho"
                       ></v-text-field>
                     </v-col>
@@ -60,13 +73,29 @@
                       <v-text-field
                         v-model="editedItem.telefone"
                         label="Telefone"
+                        placeholder="Ex: (99) 12345-6789"
+                        v-mask="['(##)####-####','(##)#####-####']"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.dataDeNascimento"
+                        label="Data de nascimento"
+                        placeholder="Ex: 11/22/2000"
+                        v-mask="'##/##/####'"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.endereco"
-                        label="Ex: Av. São Carlos, 500, Centro - São Carlos"
+                        label="Digite o endereço"
+                        placeholder="Ex: Av. São Carlos, 500, Centro - São Carlos"
                       ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-checkbox
+                      label="É administrador?"
+                      />
                     </v-col>
                     
                   </v-row>
@@ -146,16 +175,15 @@ export default {
     editedIndex: -1,
     editedItem: {
       nome: "",
-      id_usuario: 1,
       email: "",
-      telefone: 1697227864,
+      cpf: '',
+      telefone: '',
       endereco: "",
     },
     defaultItem: {
       nome: "",
-      id_usuario: 1,
       email: "",
-      telefone: 1697227864,
+      telefone: '',
       endereco: "",
     },
   }),
@@ -183,13 +211,7 @@ export default {
     async initialize() {
       this.usuarios = await this.getUsuarios();
     },
-        // beforeCreate é a função do Vue para inicializar um componente.
-    // esta função carrega pra página de cadastrar produtos todos os produtos
-    // já existentes no banco de dados:
     async beforeCreate(){
-    
-      console.log(this.response);
-      //atribui os produtos do banco à variável "produtos":
       this.usuarios = await this.getUsuarios();
     },
 
@@ -230,6 +252,7 @@ export default {
     async getUsuarios(){
       //método get: pega todos os usuários do Mongo:
       const response = await axios.get("http://localhost:3000/api/auth/find");
+      console.log(response.data)
 
       return response.data;
     },

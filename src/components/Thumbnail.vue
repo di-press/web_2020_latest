@@ -7,7 +7,6 @@
       <v-card-text>
         <div class="secao-preco" v-bind:style="detailsStyles">R$ {{ produto.preco_produto }}</div>
         <v-btn 
-        v-bind:styles="detailsStyles"
         depressed color="primary"
         class="black--text"
         @click="atualizarProduto"> 

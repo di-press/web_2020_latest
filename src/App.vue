@@ -47,8 +47,8 @@
         <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
           >Usuários
         </span>
-        <!-- Tentar deixar dinâmico o número de produtos no ícone do carrinho -->
-        <v-badge content="2" value="1" color="#4dd0e1">
+        <v-badge v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'" :content="nitens" :value="nitens" color="#4dd0e1">
+          <!--v-badge :content="nitens" :value="nitens" content="numberItensCart()" value="1" color="#4dd0e1"-->
           <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
             >mdi-cart</v-icon
           >
@@ -143,6 +143,7 @@ export default {
         { title: "Shorts" },
       ],
       activeBtn: 1,
+      nitens: null,
     };
   },
   created() {
@@ -255,7 +256,18 @@ export default {
       }
     },
   },
+  async beforeCreate() {
+    this.nitens = await numberItensCart();
+  }
 };
+
+async function numberItensCart() {
+  const response = await axios.get("http://localhost:3000/api/carrinho");
+
+  const products = response.data;
+  
+  return products.length;
+}
 </script>
 
 

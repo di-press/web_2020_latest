@@ -10,7 +10,7 @@ const vuetify = new Vuetify({
         light: {
           primary: "#f45e18",
           secondary: "#222f3f",
-          accent: "##ff9049",
+          accent: "#ff9049",
           anchor: "#222f3f"
         }
       }

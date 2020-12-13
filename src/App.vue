@@ -15,6 +15,17 @@
         </a>
       </v-toolbar-title>
 
+      <v-btn
+        v-if="!logado"
+        id="btn3"
+        href="/entrar"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Entrar</span>
+      <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+
       <v-text-field
         flat
         filled
@@ -35,42 +46,60 @@
       </v-btn>
       <v-btn
         id="btn1"
-        v-on="on"
         href="/carrinho"
         class="my-3 black--text"
         color="primary"
-        @click="changeButtons"
       >
-        <span v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >Carrinho</span
-        >
-        <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
-          >Usuários
-        </span>
-        <v-badge v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'" :content="nitens" :value="nitens" color="#4dd0e1">
+        <span>Carrinho</span>
+        <!-- Tentar deixar dinâmico o número de produtos no ícone do carrinho -->
+        <v-badge :content="nitens" :value="nitens" color="#4dd0e1">
           <!--v-badge :content="nitens" :value="nitens" content="numberItensCart()" value="1" color="#4dd0e1"-->
-          <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-            >mdi-cart</v-icon
-          >
+          <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
       <v-btn
+        v-if="!logado"
         id="btn2"
         href="/registrar"
         class="my-3 black--text"
         color="primary"
-        @click="changeButtons"
       >
-        <span v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >Registrar</span
-        >
-        <span v-if="$route.name === 'Usuarios' || $route.name === 'Estoque'"
-          >Estoque
-        </span>
-        <v-icon v-if="$route.name !== 'Usuarios' && $route.name !== 'Estoque'"
-          >mdi-account-circle</v-icon
-        >
+      <span>Registrar</span>
+      <v-icon>mdi-account-circle</v-icon>
       </v-btn>
+
+      <v-btn
+        v-if="administador"
+        id="btn22"
+        href="/usuarios"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Usuarios</span>
+      </v-btn>
+
+      <v-btn
+        v-if="administador"
+        id="btn33"
+        href="/estoque"
+        class="my-3 black--text"
+        color="primary"
+      >
+      <span>Estoque</span>
+      </v-btn>
+
+      <v-btn
+        v-if="logado"
+        id="btn4"
+        class="my-3 black--text"
+        color="primary"
+        @click="sair"
+      >
+      <span>Sair</span>
+      <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+
+
     </v-app-bar>
     <v-content>
       <v-bottom-navigation fixed :value="activeBtn" horizontal class="primary" large>
@@ -127,9 +156,18 @@
 
 <script>
 import axios from 'axios';
+import AuthService from './services/auth'
 
 export default {
   name: "App",
+  computed: {
+    logado() {
+      return AuthService.estaLogado()
+    },
+    administador() {
+      return AuthService.isAdmin()
+    }
+  },
   data() {
     return {
       busca: "",
@@ -163,7 +201,10 @@ export default {
 
       return response.data;
     },
-
+    sair() {
+      AuthService.logout()
+      window.location.href = "/";
+    },
     async findNovidades() {
       //método get: pega todos os produtos com a categoria Novidades do Mongo(3 produtos):
       const response = await axios.get("http://localhost:3000/api/produtos/findNovidades");
@@ -248,12 +289,6 @@ export default {
       this.navigationStyles.fontSize = this.numericFontSize + "em";
 
       this.$store.dispatch("reduceFont");
-    },
-    changeButtons() {
-      if (this.$route.name === "Usuarios" || this.$route.name === "Estoque") {
-        document.getElementById("btn1").href = "/usuarios";
-        document.getElementById("btn2").href = "/estoque";
-      }
     },
   },
   async beforeCreate() {

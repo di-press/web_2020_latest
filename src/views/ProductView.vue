@@ -141,6 +141,8 @@ export default {
 
         tmp.unidades_estoque -= this.quantity;
 
+        let user = JSON.parse(localStorage.getItem('user'));
+
         await axios.put(`http://localhost:3000/api/produtos/${ this.product._id }`, { 
           name: tmp.name, 
           id_produto: tmp.id_produto, 
@@ -153,7 +155,11 @@ export default {
           foto: tmp.foto, 
           descricao_produto: tmp.descricao_produto, 
           descricao_foto: tmp.descricao_foto
-        });
+        }, {
+  headers: {
+    'x-access-token': `${user.token}` 
+  }
+} );
       } else {
         alert(`Produto não está disponível em quantidade indicada`);
       }

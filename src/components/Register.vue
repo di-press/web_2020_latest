@@ -31,16 +31,6 @@
             required="true"
           />
 
-          <label for="pass-repeat">Repita a senha:</label>
-          <input
-            v-model="form.pass_rep"
-            type="password"
-            id="confirm_pass"
-            name="confirm_pass"
-            placeholder="********"
-            required="true"
-          />
-
           <label for="id">CPF:</label>
           <input
             v-model="form.cpf"
@@ -72,6 +62,7 @@
             placeholder="Ex: 01/01/1999"
             required="true"
             v-mask="'##/##/####'"
+            
           />
 
           <label for="adress">Endereço:</label>
@@ -92,7 +83,7 @@
             placeholder="Ex: (99) 12345-6789"
             title="Número não confere com o padrão."
             required="true"
-            v-mask="['(##)####-####','(##)#####-####']"
+            v-mask="['(##) ####-####','(##) #####-####']"
           />
 
           <label>
@@ -135,7 +126,6 @@ export default {
       form: {
         mail: null,
         pass: null,
-        pass_rep: null,
         cpf: null,
         name: null,
         birth: null,

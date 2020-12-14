@@ -55,6 +55,7 @@
                       <v-text-field
                         v-model="editedItem.id_produto"
                         label="ID"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
 
@@ -66,18 +67,21 @@
                         class="cabecalho"
                         prefix="$"
                         suffix = ".00"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.unidades_estoque"
                         label="Em Estoque"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.unidades_vendidas"
                         label="Vendidos"
+                        :rules="numeroRules"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -239,6 +243,9 @@ export default {
       unidades_vendidas: 0,
       lucro: "",
     },
+    numeroRules: [
+      v => v.match(/^[0-9]*$/) || 'Digite apenas um número'
+    ]
   }),
 
   computed: {

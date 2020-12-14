@@ -41,6 +41,7 @@
                         v-model="editedItem.nome"
                         label="Nome e sobrenome"
                         placeholder="Digite o nome completo"
+                        :rules="textoRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -49,6 +50,7 @@
                         label="CPF"
                         v-mask="'###.###.###-##'"
                         placeholder="Ex: 123.456.789-00"
+                        :rules="cpfRules"
                       ></v-text-field>
                     </v-col>
                     <br />
@@ -58,15 +60,7 @@
                         label="Email"
                         placeholder="Ex. marianasilva@gmail.com"
                         class="cabecalho"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.senha"
-                        label="Senha"
-                        type="password"
-                        placeholder="********"
-                        class="cabecalho"
+                        :rules="emailRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -74,7 +68,8 @@
                         v-model="editedItem.telefone"
                         label="Telefone"
                         placeholder="Ex: (99) 12345-6789"
-                        v-mask="['(##)####-####','(##)#####-####']"
+                        v-mask="['(##) ####-####','(##) #####-####']"
+                        :rules="telefoneRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -83,6 +78,7 @@
                         label="Data de nascimento"
                         placeholder="Ex: 11/22/2000"
                         v-mask="'##/##/####'"
+                        :rules="dataRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
@@ -192,6 +188,24 @@ export default {
       telefone: '',
       endereco: "",
     },
+    emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve ser valido'
+    ],
+    telefoneRules: [
+      v => v.match(/\([0-9]{2}\)[\s][0-9]{5}-[0-9]{4}/) || 'Formato inválido'
+    ],
+    numeroRules: [
+      v => v.match(/^[0-9]*$/) || 'Digite apenas um número'
+    ],
+    cpfRules: [
+       v => v.match(/\d{3}\.\d{3}\.\d{3}-\d{2}/) || 'Formato inválido'
+    ],
+    dataRules: [
+       v => v.match(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/) || 'Formato inválido'
+    ],
+    textoRules: [
+      v => v.match(/[a-zA-Z]+$/) || 'Digite apenas texto'
+    ]
   }),
 
   computed: {

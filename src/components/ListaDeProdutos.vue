@@ -41,15 +41,15 @@
         </v-container>
       </div>
       <div v-else class="d-flex justify-center">
-        <v-alert
-        dense
-        border="left"
-        type="warning"
-        class="font-bold-black black--text"
-        v-bind:style="styles"
-        >
-          Produto não encontrado :( 
-        </v-alert>
+          <v-alert
+          dense
+          border="left"
+          type="warning"
+          class="font-bold-black black--text d-flex justify-centero"
+          v-bind:style="styles"
+          >
+            Produto não encontrado :( 
+          </v-alert>  
       </div>
     </div>
   </div>

@@ -18,6 +18,7 @@
             name="mail"
             placeholder="Ex: nome@gmail.com"
             required="true"
+            :rules="emailRules"
           />
 
           <label for="password">Senha:</label>
@@ -58,6 +59,9 @@ export default {
         mail: null,
         pass: null,
       },
+      emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve ser valido'
+      ],
     };
   },
   methods: {

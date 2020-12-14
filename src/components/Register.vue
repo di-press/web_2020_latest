@@ -112,7 +112,6 @@
           </div>
         </div>
       </form>
-      <p> {{ form }} </p>
       <p class="signin">
         <span>Já tem um cadastro? </span>
         <a href="/entrar">Entrar</a>

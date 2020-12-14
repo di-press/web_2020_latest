@@ -100,11 +100,9 @@ export default new Vuex.Store({
             commit('setExclusivos', exclusivos);
         },
         updateProduct({commit}, product) {
-            console.info("ACTION PRODUCT");
             commit('setProduct', product);
         },
         registraBusca({commit}, busca) {
-            console.info("ACTIONS string: " + busca);
             commit('filtraProdutos', busca);
         },
         filtraPorCor({commit}, cores) {

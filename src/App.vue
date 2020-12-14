@@ -45,7 +45,7 @@
         -A
       </v-btn>
       <v-btn
-      v-if="logado"
+      v-if="logado && !administador"
       id="btn1"
       href="/carrinho"
       class="my-3 black--text"
@@ -201,8 +201,18 @@ export default {
 
       return response.data;
     },
-    sair() {
+    
+    async limparCarrinho() {
+      const response = await axios.get("http://localhost:3000/api/carrinho");
+      const products = response.data; 
+      
+      for (let product of products) { 
+        await axios.delete(`http://localhost:3000/api/carrinho/${product._id}`);
+      }
+    },
+    async sair() {
       AuthService.logout()
+      await this.limparCarrinho();
       window.location.href = "/";
     },
     async findNovidades() {
@@ -232,8 +242,6 @@ export default {
 
     buscarProdutos() {
       if (this.stringValida(this.busca)) {
-        console.info("BUSCA: " + this.busca.trim());
-        console.info("ROUTER ATUAL:" + this.$route.path.toString());
 
         if (this.$route.path !== '/produtos') {
           this.$router.push('/produtos');
@@ -243,7 +251,7 @@ export default {
           document.documentElement.scrollTop = 0; // Para o navegador Chrome, Firefox, IE e Opera
         }
         else {
-          this.$router.go(0);
+          //this.$router.go(0);
         }
 
         this.$store.dispatch('registraBusca', this.busca.trim());
@@ -268,7 +276,6 @@ export default {
     },
 
     aumentarFontes() {
-      console.info("AUMENTAR");
 
       this.numericFontSize += 0.1;
       if (this.numericFontSize >= 1.8) {
@@ -279,7 +286,6 @@ export default {
       this.$store.dispatch("enlargeFont");
     },
     diminuirFontes() {
-      console.info("DIMINUIR");
 
       this.numericFontSize -= 0.1;
       if (this.numericFontSize <= 0.8) {

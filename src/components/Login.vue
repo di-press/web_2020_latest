@@ -37,7 +37,7 @@
             class="mx-auto black--text"
             large
             type="submit"
-            @click="redirect"
+            @click="checkForm"
           >
             Entrar
           </v-btn>
@@ -71,6 +71,18 @@ export default {
         window.location.href = "/";
       }
     },
+    checkForm() {
+      var regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      var flag = regex.exec(this.form.mail);
+      var target = document.getElementById("mail");
+      if (!flag) {
+        target.setCustomValidity("E-mail inválido");
+      }
+      else {
+        target.setCustomValidity("");
+        this.redirect();
+      }
+    }
   },
 };
 </script>

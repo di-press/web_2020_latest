@@ -60,7 +60,6 @@
                     </v-col>
 
                     <v-col cols="12" sm="6" md="4">
-                      R$ 20.00
                       <v-text-field
                         v-model="editedItem.preco_produto"
                         label="Preço (R$)"
@@ -107,11 +106,11 @@
                         label="Categoria"
                       ></v-select>
                     </v-col>
-                    <v-file-input
-                      label="Inserir Foto"
-                      filled
-                      prepend-icon="mdi-camera"
-                    ></v-file-input>
+                   <v-text-field
+                        class="cadastro_de_produtos"
+                        v-model="editedItem.foto"
+                        label="URL da imagem"
+                      ></v-text-field>
                     <v-col cols="12" sm="6" md="4">
                       <v-container fluid>
                         <v-textarea
@@ -216,7 +215,6 @@ export default {
       { text: "Preço (R$)", value: "preco_produto" },
       { text: "Unidades em Estoque", value: "unidades_estoque" },
       { text: "Unidades Vendidas", value: "unidades_vendidas" },
-      { text: "Lucro (R$)", value: "lucro" },
       { text: "Ações", value: "acoes", sortable: false },
     ],
     produtos: [],
@@ -227,7 +225,6 @@ export default {
       preco_produto: "",
       unidades_estoque: 0,
       unidades_vendidas: 0,
-      lucro: "",
       cor: "",
       tam_produto: "",
       categoria_produto: "",
@@ -241,7 +238,6 @@ export default {
       preco_produto: "",
       unidades_estoque: 0,
       unidades_vendidas: 0,
-      lucro: "",
     },
     numeroRules: [
       v => v.match(/^[0-9]*$/) || 'Digite apenas um número'

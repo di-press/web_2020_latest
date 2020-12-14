@@ -46,6 +46,7 @@
           border="left"
           type="warning"
           class="font-bold-black black--text d-flex justify-centero"
+          color="primary"
           v-bind:style="styles"
           >
             Produto não encontrado :( 
@@ -147,6 +148,7 @@ export default {
     },
     'filtros': {
       handler: function() {
+        console.info("FILTRO" + this.$store.state.ultimaBusca);
         this.$store.dispatch('registraBusca', this.$store.state.ultimaBusca);
         this.$store.dispatch('filtraPorCor', this.filtros.coresSelecionadas);
         this.$store.dispatch('filtraPorTamanho', this.filtros.tamanhosEscolhidos);
